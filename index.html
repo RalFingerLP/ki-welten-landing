@@ -14,11 +14,14 @@
             --primary-accent: #ff8c00; /* Orange */
             --secondary-accent: #00bfff; /* Cyan */
             --border-color: #2a2a30;
-            /* Removed Kofi color variables */
             --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             --header-height: 70px;
             --glow-primary: 0 0 8px rgba(255, 140, 0, 0.6);
             --glow-secondary: 0 0 8px rgba(0, 191, 255, 0.5);
+
+            /* RGBA versions for Canvas (adjust alpha as needed) */
+            --primary-accent-rgba: rgba(255, 140, 0, 0.4);
+            --secondary-accent-rgba: rgba(0, 191, 255, 0.3);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,19 +29,35 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             line-height: 1.7; color: var(--text-color); background-color: var(--background-color); font-size: 16px;
+            position: relative; /* Needed for canvas positioning context if not using fixed */
+            overflow-x: hidden; /* Prevent potential horizontal scroll */
         }
 
+        /* Dynamic Background Canvas */
+        #dynamic-background {
+            position: fixed; /* Stick to viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Behind all content */
+            pointer-events: none; /* Allow clicks to pass through */
+            opacity: 0.5; /* Adjust overall subtlety */
+        }
+
+
         /* 2. Layout Container */
-        .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; /* Ensure content is above canvas */ }
 
         /* 3. Header & Navigation */
         .site-header {
             background-color: rgba(10, 10, 11, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; left: 0; width: 100%; z-index: 1000; height: var(--header-height);
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 10; /* Header above content and canvas */ height: var(--header-height);
         }
         .site-header .container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
         .site-branding { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 600; text-decoration: none; color: var(--text-color); }
         .brand-logo { height: 35px; width: auto; object-fit: contain; }
+        /* Removed span text style as span is gone */
         .main-navigation ul { list-style: none; display: flex; gap: 25px; }
         .main-navigation a { text-decoration: none; color: var(--secondary-text-color); font-weight: 500; transition: color 0.2s ease, text-shadow 0.2s ease; padding-bottom: 5px; }
         .main-navigation a:hover, .main-navigation a.active { color: var(--primary-accent); text-shadow: var(--glow-primary); }
@@ -46,6 +65,7 @@
 
         /* 4. Hero Section */
         .hero { padding: 80px 0 60px 0; text-align: center; position: relative; overflow: hidden; border-bottom: 1px solid var(--border-color); }
+        .hero .container { position: relative; z-index: 1; } /* Ensure hero content above canvas */
         .hero-logo { max-width: 320px; height: auto; margin: 0 auto 30px auto; display: block; }
         .hero h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 15px; line-height: 1.2; color: var(--text-color); }
         .hero h1 .highlight { color: var(--primary-accent); text-shadow: var(--glow-primary); }
@@ -61,78 +81,50 @@
         .button-primary:hover { background-color: #ffA500; color: #000000; border-color: #ffA500; box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3); }
         .button-secondary { background-color: transparent; color: var(--secondary-accent); border: 1px solid var(--secondary-accent); }
         .button-secondary:hover { background-color: rgba(0, 191, 255, 0.1); color: #00dfff; border-color: #00dfff; box-shadow: 0 4px 15px rgba(0, 191, 255, 0.2); }
-        /* Removed kofi button style */
 
         /* 6. Section Styling */
-        .section { padding: 70px 0; }
+        .section { padding: 70px 0; position: relative; z-index: 1; /* Ensure section content above canvas */ }
         .section.section-alt { background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .section-title { font-size: 2.2rem; font-weight: 600; margin-bottom: 15px; text-align: center; color: var(--text-color); }
         .section-title .highlight { color: var(--secondary-accent); text-shadow: var(--glow-secondary); }
         .section-subtitle { font-size: 1rem; color: var(--secondary-text-color); text-align: center; margin-bottom: 45px; max-width: 550px; margin-left: auto; margin-right: auto; }
 
         /* 7. Grid Layout (Used for Community & Staff) */
-        .card-grid { /* Renamed from community-grid for broader use */
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 25px;
-        }
-
-        /* Styling for Staff subheadings */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 25px; }
         .staff-role-heading {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-top: 40px; /* Space above role heading */
-            margin-bottom: 25px; /* Space below role heading */
-            text-align: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
+            font-size: 1.6rem; font-weight: 600; color: var(--text-color); margin-top: 40px; margin-bottom: 25px;
+            text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
         }
-        .staff-role-heading.admin { border-color: var(--primary-accent); } /* Orange underline for Admins */
-        .staff-role-heading.moderator { border-color: var(--secondary-accent); } /* Cyan underline for Mods */
-
-
-        .member-card { /* Shared style for community and staff cards */
-            background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 10px; padding: 25px; text-align: center;
+        .staff-role-heading.admin { border-color: var(--primary-accent); }
+        .staff-role-heading.moderator { border-color: var(--secondary-accent); }
+        .member-card {
+            background-color: rgba(20, 20, 24, 0.8); /* Slightly transparent card background */
+            backdrop-filter: blur(5px); /* Blur behind card */
+            border: 1px solid var(--border-color); border-radius: 10px; padding: 25px; text-align: center;
             box-shadow: var(--card-shadow); transition: all 0.2s ease-in-out;
         }
         .member-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); border-color: var(--primary-accent); }
-
         .member-avatar {
             width: 80px; height: 80px; border-radius: 50%; background-color: var(--background-color); border: 2px solid var(--border-color);
-            margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; /* Larger font for initials */
-            font-weight: 600; color: var(--secondary-accent); overflow: hidden; /* Clip img */
+            margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+            font-weight: 600; color: var(--secondary-accent); overflow: hidden;
         }
-        .member-avatar img { width: 100%; height: 100%; object-fit: cover; } /* Style for the actual image */
-
+        .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .member-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--text-color); }
         .member-card .description { color: var(--secondary-text-color); font-size: 0.9rem; margin-bottom: 20px; min-height: 35px; }
-
-        /* Role Specific Text Styling */
-         .member-card .role {
-             font-size: 0.9rem;
-             font-weight: 600;
-             display: block; /* Ensure it takes its own line */
-             margin-bottom: 15px; /* Space before button */
-             text-transform: uppercase;
-             letter-spacing: 0.5px;
-         }
-         .member-card .role.role-admin { color: var(--primary-accent); }
-         .member-card .role.role-moderator { color: var(--secondary-accent); }
-
-
+        .member-card .role { font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .member-card .role.role-admin { color: var(--primary-accent); }
+        .member-card .role.role-moderator { color: var(--secondary-accent); }
         .member-card .button { font-size: 0.85rem; padding: 8px 18px; }
 
         /* 8. About Section */
         #about p { max-width: 700px; margin: 0 auto 15px auto; text-align: center; color: var(--secondary-text-color); }
         #about p:first-of-type { color: var(--text-color); font-size: 1.05rem; }
 
-        /* 9. Removed Donate Section Styles */
-
         /* 10. Footer */
         .site-footer {
             background-color: var(--surface-color); color: var(--secondary-text-color); padding: 35px 0; text-align: center;
-            font-size: 0.85rem; margin-top: 40px; border-top: 1px solid var(--border-color);
+            font-size: 0.85rem; margin-top: 40px; border-top: 1px solid var(--border-color); position: relative; z-index: 1; /* Footer above canvas */
         }
         .site-footer a { color: var(--primary-accent); text-decoration: none; transition: color 0.2s ease, text-shadow 0.2s ease; }
         .site-footer a:hover { color: #ffa500; text-shadow: var(--glow-primary); }
@@ -149,25 +141,27 @@
             .section { padding: 50px 0; } .section-title { font-size: 1.7rem; } .section-subtitle { font-size: 0.9rem; margin-bottom: 35px;}
             .card-grid { grid-template-columns: 1fr; gap: 20px; }
             .staff-role-heading { font-size: 1.4rem; margin-top: 30px; margin-bottom: 20px; }
+            /* Consider disabling canvas on very small screens if performance is an issue */
+            /* #dynamic-background { display: none; } */
         }
 
     </style>
 </head>
 <body>
+    <canvas id="dynamic-background"></canvas> <!-- Canvas added here -->
 
     <header class="site-header">
         <div class="container">
             <a href="#home" class="site-branding">
                 <img src="images/ki-welten-logo.jpg" alt="KI-Welten Logo" class="brand-logo">
-                <span>KI-Welten</span>
+                <!-- Removed KI-Welten span text -->
             </a>
             <nav class="main-navigation">
                 <ul>
-                    <li><a href="#discord">Discord</a></li>
+                    <!-- Removed Discord Link -->
                     <li><a href="#community">Community</a></li>
-                    <li><a href="#staff">Staff</a></li> <!-- Added Staff Link -->
+                    <li><a href="#staff">Staff</a></li>
                     <li><a href="#about">About Us</a></li>
-                    <!-- Removed Donate Link -->
                 </ul>
             </nav>
              <div class="menu-toggle">☰</div>
@@ -187,40 +181,26 @@
             </div>
         </section>
 
-        <!-- Discord Section -->
-        <section id="discord" class="section">
-            <div class="container">
-                <h2 class="section-title">Join the <span class="highlight">Conversation</span></h2>
-                 <p class="section-subtitle">Connect with hundreds of members discussing AI trends, sharing resources, and collaborating on creative projects daily.</p>
-                 <div style="text-align: center;">
-                    <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Enter KI-Welten Discord</a>
-                 </div>
-            </div>
-         </section>
+        <!-- REMOVED Discord Section -->
 
         <!-- Community Showcase Section -->
         <section id="community" class="section section-alt">
             <div class="container">
                 <h2 class="section-title">Community <span class="highlight">Showcase</span></h2>
                 <p class="section-subtitle">Discover the incredible models, images, and projects created by our general members.</p>
-
-                <div class="card-grid"> <!-- Changed class to card-grid -->
-                    <!-- Example Member Card -->
+                <div class="card-grid">
                      <div class="member-card">
                          <div class="member-avatar"> ✨ </div>
                          <h3>Community Member</h3>
                          <p class="description">Showcasing amazing AI art or innovative models!</p>
                          <a href="#" class="button button-secondary" style="opacity: 0.6; pointer-events: none;">View Profile</a>
                     </div>
-
-                     <!-- Call to Action Card: -->
                      <div class="member-card">
                          <div class="member-avatar"> 🚀 </div>
                          <h3>Your Name Here?</h3>
                          <p class="description">Join the community and share your work!</p>
                          <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join Discord</a>
                     </div>
-                    <!-- Add more general community member cards here if desired -->
                 </div>
             </div>
         </section>
@@ -230,117 +210,58 @@
             <div class="container">
                 <h2 class="section-title">Meet the <span class="highlight">Team</span></h2>
                 <p class="section-subtitle">Our dedicated Admins and Moderators who help keep KI-Welten running smoothly.</p>
-
-                <!-- Admins -->
                 <h2 class="staff-role-heading admin">Admins</h2>
-                <div class="card-grid"> <!-- Use the same grid class -->
-                    <!-- RalFinger -->
+                <div class="card-grid">
                     <div class="member-card">
-                        <div class="member-avatar">
-                            RF
-                            <!-- TODO: Replace placeholder with img tag -->
-                            <!-- <img src="URL_TO_RALFINGER_AVATAR.JPG" alt="RalFinger Avatar"> -->
-                        </div>
-                        <h3>RalFinger</h3>
-                        <span class="role role-admin">Admin</span>
+                        <div class="member-avatar">RF<!-- <img src="..." alt="RalFinger Avatar"> --></div>
+                        <h3>RalFinger</h3><span class="role role-admin">Admin</span>
                         <a href="https://civitai.com/user/RalFinger" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
-
-                    <!-- maDcaDDie -->
                     <div class="member-card">
-                        <div class="member-avatar">
-                            MD
-                            <!-- TODO: Replace placeholder with img tag -->
-                            <!-- <img src="URL_TO_MADCADDIE_AVATAR.JPG" alt="maDcaDDie Avatar"> -->
-                        </div>
-                        <h3>maDcaDDie</h3>
-                        <span class="role role-admin">Admin</span>
+                        <div class="member-avatar">MD<!-- <img src="..." alt="maDcaDDie Avatar"> --></div>
+                        <h3>maDcaDDie</h3><span class="role role-admin">Admin</span>
                         <a href="https://civitai.com/user/maDcaDDie" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
-
-                    <!-- Flushx -->
                      <div class="member-card">
-                        <div class="member-avatar">
-                            FX
-                            <!-- TODO: Replace placeholder with img tag -->
-                            <!-- <img src="URL_TO_FLUSHX_AVATAR.JPG" alt="Flushx Avatar"> -->
-                        </div>
-                        <h3>Flushx</h3>
-                        <span class="role role-admin">Admin</span>
+                        <div class="member-avatar">FX<!-- <img src="..." alt="Flushx Avatar"> --></div>
+                        <h3>Flushx</h3><span class="role role-admin">Admin</span>
                         <a href="https://civitai.com/user/Flushx" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
                 </div>
-
-                <!-- Moderators -->
                 <h2 class="staff-role-heading moderator">Moderators</h2>
-                 <div class="card-grid"> <!-- Use the same grid class -->
-                     <!-- dark_infinity -->
+                 <div class="card-grid">
                      <div class="member-card">
-                        <div class="member-avatar">
-                            DI
-                            <!-- TODO: Replace placeholder with img tag -->
-                            <!-- <img src="URL_TO_DARK_INFINITY_AVATAR.JPG" alt="dark_infinity Avatar"> -->
-                        </div>
-                        <h3>dark_infinity</h3>
-                        <span class="role role-moderator">Moderator</span>
+                        <div class="member-avatar">DI<!-- <img src="..." alt="dark_infinity Avatar"> --></div>
+                        <h3>dark_infinity</h3><span class="role role-moderator">Moderator</span>
                         <a href="https://civitai.com/user/dark_infinity" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
-
-                     <!-- Roscosmos -->
                      <div class="member-card">
-                        <div class="member-avatar">
-                            RC
-                             <!-- TODO: Replace placeholder with img tag -->
-                             <!-- <img src="URL_TO_ROSCOSMOS_AVATAR.JPG" alt="Roscosmos Avatar"> -->
-                        </div>
-                        <h3>Roscosmos</h3>
-                         <span class="role role-moderator">Moderator</span>
+                        <div class="member-avatar">RC<!-- <img src="..." alt="Roscosmos Avatar"> --></div>
+                        <h3>Roscosmos</h3><span class="role role-moderator">Moderator</span>
                         <a href="https://civitai.com/user/Roscosmos" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
-
-                     <!-- Dever -->
                      <div class="member-card">
-                        <div class="member-avatar">
-                            DV
-                             <!-- TODO: Replace placeholder with img tag -->
-                             <!-- <img src="URL_TO_DEVER_AVATAR.JPG" alt="Dever Avatar"> -->
-                        </div>
-                        <h3>Dever</h3>
-                         <span class="role role-moderator">Moderator</span>
+                        <div class="member-avatar">DV<!-- <img src="..." alt="Dever Avatar"> --></div>
+                        <h3>Dever</h3><span class="role role-moderator">Moderator</span>
                         <a href="https://civitai.com/user/Dever" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
-
-                     <!-- ChronoKnight -->
                      <div class="member-card">
-                        <div class="member-avatar">
-                            CK
-                             <!-- TODO: Replace placeholder with img tag -->
-                             <!-- <img src="URL_TO_CHRONOKNIGHT_AVATAR.JPG" alt="ChronoKnight Avatar"> -->
-                        </div>
-                        <h3>ChronoKnight</h3>
-                         <span class="role role-moderator">Moderator</span>
+                        <div class="member-avatar">CK<!-- <img src="..." alt="ChronoKnight Avatar"> --></div>
+                        <h3>ChronoKnight</h3><span class="role role-moderator">Moderator</span>
                         <a href="https://civitai.com/user/ChronoKnight" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
                 </div>
-
             </div>
         </section>
-
 
         <!-- About Us Section -->
-        <section id="about" class="section section-alt"> <!-- Changed back to section-alt -->
+        <section id="about" class="section section-alt">
             <div class="container">
                 <h2 class="section-title">About <span class="highlight">KI-Welten</span></h2>
-                <p>
-                    KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.
-                </p>
-                <p>
-                    We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI. [Add more specific details later!]
-                </p>
+                <p>KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.</p>
+                <p>We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI. [Add more specific details later!]</p>
             </div>
         </section>
-
-        <!-- Removed Donate Section -->
 
     </main>
 
@@ -349,6 +270,153 @@
             <p>&copy; 2024 KI-Welten. All rights reserved. | <a href="https://discord.gg/g5Pb8qNUuP" target="_blank">Join us on Discord</a></p>
         </div>
     </footer>
+
+    <script>
+        const canvas = document.getElementById('dynamic-background');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 80 }; // Interaction radius around mouse
+
+        // --- Configuration ---
+        const PARTICLE_COUNT = 100; // Number of particles
+        const MAX_PARTICLE_SIZE = 3;
+        const MIN_PARTICLE_SIZE = 1;
+        const MAX_SPEED = 0.5;
+        const MOUSE_REPEL_FORCE = 1.5; // How strongly particles move away from mouse
+        const DAMPING = 0.98; // Slows particles down over time (closer to 1 = less damping)
+        // --- End Configuration ---
+
+        // Get colors from CSS variables
+        const computedStyle = getComputedStyle(document.documentElement);
+        const primaryColor = computedStyle.getPropertyValue('--primary-accent-rgba').trim();
+        const secondaryColor = computedStyle.getPropertyValue('--secondary-accent-rgba').trim();
+        const particleColors = [primaryColor, secondaryColor];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // Re-initialize particles on resize if needed, or just let them adapt
+            // initParticles(); // Optional: reset particles on resize
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
+
+        window.addEventListener('mouseout', () => { // Reset mouse pos when it leaves window
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+
+        class Particle {
+            constructor(x, y, vx, vy, size, color) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx;
+                this.vy = vy;
+                this.size = size;
+                this.color = color;
+                this.baseX = this.x; // Store original position (optional, for other effects)
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1; // Example property
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                // Mouse interaction
+                if (mouse.x !== null && mouse.y !== null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+
+                    // Calculate force based on distance (stronger closer)
+                    let maxDistance = mouse.radius;
+                    if (distance < maxDistance) {
+                        let force = (maxDistance - distance) / maxDistance; // Normalized force (0 to 1)
+                        let directionX = forceDirectionX * force * MOUSE_REPEL_FORCE * this.density * 0.1; // Adjusted density impact
+                        let directionY = forceDirectionY * force * MOUSE_REPEL_FORCE * this.density * 0.1;
+                        // Repel force
+                        this.vx -= directionX;
+                        this.vy -= directionY;
+                    }
+                }
+
+                 // Apply velocity and damping
+                 this.x += this.vx;
+                 this.y += this.vy;
+                 this.vx *= DAMPING;
+                 this.vy *= DAMPING;
+
+
+                // Wall collision / boundary check
+                if (this.x > canvas.width + this.size) this.x = -this.size; // Wrap around horizontally
+                if (this.x < -this.size) this.x = canvas.width + this.size;
+                if (this.y > canvas.height + this.size) this.y = -this.size; // Wrap around vertically
+                if (this.y < -this.size) this.y = canvas.height + this.size;
+
+                /* Alternative: Bounce off walls
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.vx = -this.vx;
+                     // Ensure particle is back within bounds slightly to prevent sticking
+                    if(this.x + this.size > canvas.width) this.x = canvas.width - this.size;
+                    if(this.x - this.size < 0) this.x = this.size;
+                }
+                 if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                     this.vy = -this.vy;
+                     if(this.y + this.size > canvas.height) this.y = canvas.height - this.size;
+                     if(this.y - this.size < 0) this.y = this.size;
+                 }
+                 */
+
+
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particles = []; // Clear existing particles
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                let size = Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let vx = (Math.random() - 0.5) * MAX_SPEED * 2; // Random horizontal velocity
+                let vy = (Math.random() - 0.5) * MAX_SPEED * 2; // Random vertical velocity
+                let color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                particles.push(new Particle(x, y, vx, vy, size, color));
+            }
+        }
+
+        function animate() {
+            // Clear canvas slightly for a subtle trail effect, or fully clear
+            // ctx.fillStyle = 'rgba(8, 8, 11, 0.1)'; // Dark background with low alpha for trails
+            // ctx.fillRect(0, 0, canvas.width, canvas.height);
+             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear fully each frame
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+            requestAnimationFrame(animate); // Loop the animation
+        }
+
+        // --- Initial Setup ---
+        resizeCanvas(); // Set initial size
+        initParticles(); // Create the particles
+        animate(); // Start the animation loop
+        // --- End Initial Setup ---
+
+    </script>
 
 </body>
 </html>
