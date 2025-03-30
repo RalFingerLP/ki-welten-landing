@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KI-Welten - AI & Creative Community</title>
     <style>
-        /* 1. Reset & Base Styles (Inspired by modern frameworks) */
+        /* 1. Reset & Base Styles (Dark Theme) */
         :root {
-            --primary-color: #007bff; /* Vibrant blue accent */
-            --primary-hover-color: #0056b3; /* Darker blue for hover */
-            --kofi-color: #ff5e5b; /* Ko-fi brand color */
-            --kofi-hover-color: #e04441; /* Darker Ko-fi */
-            --text-color: #212529; /* Dark grey for text */
-            --secondary-text-color: #6c757d; /* Lighter grey for secondary text */
-            --background-color: #ffffff; /* White background */
-            --light-grey-bg: #f8f9fa; /* Light grey for section backgrounds */
-            --border-color: #dee2e6; /* Subtle border color */
-            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            --header-height: 70px; /* Adjust as needed */
+            --background-color: #08080B; /* Very dark grey/off-black */
+            --surface-color: #141418;  /* Slightly lighter for cards/sections */
+            --text-color: #e8e8e8;    /* Light grey/off-white */
+            --secondary-text-color: #a0a0a0; /* Dimmer grey */
+            --primary-accent: #ff8c00; /* Orange from logos */
+            --secondary-accent: #00bfff; /* Cyan/Deep Sky Blue from logos */
+            --border-color: #2a2a30;    /* Subtle dark border */
+            --kofi-color: #ff5e5b;      /* Ko-fi brand color */
+            --kofi-hover-color: #e04441;
+            --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            --header-height: 70px;
+            --glow-primary: 0 0 8px rgba(255, 140, 0, 0.6); /* Subtle orange glow */
+            --glow-secondary: 0 0 8px rgba(0, 191, 255, 0.5); /* Subtle cyan glow */
         }
 
         *,
@@ -30,30 +32,30 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: var(--header-height); /* Offset for fixed header */
+            scroll-padding-top: var(--header-height);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            line-height: 1.6;
+            line-height: 1.7; /* Slightly increased line-height for dark bg */
             color: var(--text-color);
             background-color: var(--background-color);
-            font-size: 16px; /* Base font size */
+            font-size: 16px;
         }
 
-        /* 2. Layout Container */
+        /* 2. Layout Container (Slightly narrower) */
         .container {
-            max-width: 1140px;
+            max-width: 1080px; /* Reduced max-width */
             margin-left: auto;
             margin-right: auto;
-            padding-left: 15px;
-            padding-right: 15px;
+            padding-left: 20px; /* Consistent padding */
+            padding-right: 20px;
         }
 
         /* 3. Header & Navigation */
         .site-header {
-            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
-            backdrop-filter: blur(10px); /* Blur effect for modern feel */
+            background-color: rgba(10, 10, 11, 0.85); /* Dark, slightly transparent */
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -71,62 +73,84 @@
         }
 
         .site-branding {
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem; /* Adjusted size */
             font-weight: 600;
             text-decoration: none;
             color: var(--text-color);
+        }
+        .brand-logo {
+             height: 35px; /* Control logo size */
+             width: auto;
+             object-fit: contain; /* Prevent distortion */
         }
 
         .main-navigation ul {
             list-style: none;
             display: flex;
-            gap: 25px; /* Spacing between nav items */
+            gap: 25px;
         }
 
         .main-navigation a {
             text-decoration: none;
             color: var(--secondary-text-color);
             font-weight: 500;
-            transition: color 0.2s ease-in-out;
+            transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
+            padding-bottom: 5px; /* Space for potential underline/glow */
         }
 
         .main-navigation a:hover,
-        .main-navigation a.active { /* Add 'active' class dynamically if needed */
-            color: var(--primary-color);
+        .main-navigation a.active {
+            color: var(--primary-accent);
+            text-shadow: var(--glow-primary);
         }
 
-        /* Mobile Navigation (Basic - Placeholder for potential JS toggle) */
+        /* Mobile Navigation (Basic - Placeholder) */
         .menu-toggle {
-             display: none; /* Hidden on desktop */
-             /* Basic styling for a burger icon if you implement JS */
-             font-size: 1.5rem;
+             display: none;
+             font-size: 1.8rem; /* Larger tap target */
              cursor: pointer;
+             color: var(--secondary-text-color);
          }
 
 
         /* 4. Hero Section */
         .hero {
-            background-color: var(--light-grey-bg);
-            /* Placeholder for abstract graphic background */
-            /* background-image: linear-gradient(to right bottom, rgba(0, 123, 255, 0.05), rgba(0, 86, 179, 0.01)), url('images/abstract-bg.svg'); */
-            /* background-size: cover; */
-            padding: 100px 0 80px 0;
+            padding: 80px 0 60px 0; /* Adjusted padding */
             text-align: center;
+            position: relative; /* For potential background elements */
+            overflow: hidden; /* Contain potential pseudo-elements */
             border-bottom: 1px solid var(--border-color);
         }
 
-        .hero h1 {
-            font-size: 3rem; /* Larger title */
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
+        .hero-logo {
+            max-width: 280px; /* Control logo size */
+            height: auto;
+            margin: 0 auto 30px auto; /* Space below logo */
+            display: block;
         }
 
+        .hero h1 {
+            font-size: 2.8rem; /* Slightly adjusted size */
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            color: var(--text-color); /* Ensure high contrast */
+             /* text-shadow: var(--glow-secondary); Subtle glow */
+        }
+        /* Highlight word with accent color */
+         .hero h1 .highlight {
+             color: var(--primary-accent);
+             text-shadow: var(--glow-primary);
+         }
+
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--secondary-text-color);
-            margin-bottom: 35px;
-            max-width: 650px;
+            margin-bottom: 30px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -134,172 +158,195 @@
         /* 5. Button Styles */
         .button {
             display: inline-block;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: 500;
+            padding: 10px 25px; /* Slightly smaller padding */
+            font-size: 0.95rem;
+            font-weight: 600; /* Bolder */
             text-align: center;
             text-decoration: none;
-            border-radius: 8px; /* Slightly more rounded */
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease;
-            border: none;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+            border: 1px solid transparent; /* Base border */
+            letter-spacing: 0.5px; /* Add some spacing */
         }
 
         .button:hover {
-            transform: translateY(-2px); /* Subtle lift effect */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .button-primary {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--primary-accent);
+            color: var(--background-color); /* Dark text on orange */
+            border-color: var(--primary-accent);
         }
 
         .button-primary:hover {
-            background-color: var(--primary-hover-color);
-            color: white;
+            background-color: #ffA500; /* Slightly lighter orange */
+            color: #000000;
+            border-color: #ffA500;
+             box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3); /* Orange glow shadow */
         }
 
-        .button-kofi {
+        .button-secondary {
+            background-color: transparent;
+            color: var(--secondary-accent);
+            border: 1px solid var(--secondary-accent);
+        }
+
+        .button-secondary:hover {
+            background-color: rgba(0, 191, 255, 0.1); /* Cyan tint */
+            color: #00dfff; /* Brighter Cyan */
+            border-color: #00dfff;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.2); /* Cyan glow shadow */
+        }
+
+         .button-kofi {
              background-color: var(--kofi-color);
              color: white;
-        }
+             border-color: var(--kofi-color);
+         }
          .button-kofi:hover {
              background-color: var(--kofi-hover-color);
              color: white;
+             border-color: var(--kofi-hover-color);
+             box-shadow: 0 4px 15px rgba(255, 94, 91, 0.3); /* Ko-fi color glow */
          }
-
-         .button-secondary {
-             background-color: transparent;
-             color: var(--primary-color);
-             border: 1px solid var(--primary-color);
-         }
-
-          .button-secondary:hover {
-              background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
-              color: var(--primary-hover-color);
-              border-color: var(--primary-hover-color);
-          }
 
 
         /* 6. Section Styling */
         .section {
-            padding: 80px 0;
+            padding: 70px 0; /* Slightly reduced padding */
         }
-
-        .section-discord {
-             background-color: var(--primary-color);
-             color: white;
-             text-align: center;
-         }
-         .section-discord h2 { color: white; }
-         .section-discord p { color: rgba(255,255,255,0.8); }
-         .section-discord .button {
-             background-color: white;
-             color: var(--primary-color);
-         }
-         .section-discord .button:hover {
-             background-color: #eee;
-             color: var(--primary-hover-color);
-         }
+        .section.section-alt {
+            background-color: var(--surface-color); /* Use surface color for alternating sections */
+             border-top: 1px solid var(--border-color);
+             border-bottom: 1px solid var(--border-color);
+        }
 
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem; /* Adjusted size */
             font-weight: 600;
             margin-bottom: 15px;
             text-align: center;
+            color: var(--text-color);
         }
+         .section-title .highlight {
+             color: var(--secondary-accent); /* Use secondary accent */
+             text-shadow: var(--glow-secondary);
+         }
 
         .section-subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem; /* Adjusted size */
             color: var(--secondary-text-color);
             text-align: center;
-            margin-bottom: 50px;
-            max-width: 600px;
+            margin-bottom: 45px; /* Adjusted spacing */
+            max-width: 550px; /* Slightly narrower */
             margin-left: auto;
             margin-right: auto;
         }
+
+        /* Visual Break Banner */
+        .visual-break {
+             padding: 0; /* No padding needed */
+             margin: 0; /* Remove margins */
+             height: 150px; /* Adjust height as needed */
+             background-image: url('images/abstract-wave-banner.jpg');
+             background-size: cover;
+             background-position: center center;
+             background-repeat: no-repeat;
+             border-top: 1px solid var(--border-color);
+             border-bottom: 1px solid var(--border-color);
+             opacity: 0.7; /* Slightly muted */
+         }
+
 
         /* 7. Community Showcase - Card Layout */
         .community-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Slightly smaller min size */
+            gap: 25px; /* Reduced gap */
         }
 
         .member-card {
-            background-color: var(--background-color);
+            background-color: var(--surface-color);
             border: 1px solid var(--border-color);
-            border-radius: 12px; /* More rounded cards */
-            padding: 30px;
+            border-radius: 10px;
+            padding: 25px; /* Reduced padding */
             text-align: center;
             box-shadow: var(--card-shadow);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
         }
 
         .member-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-accent); /* Highlight border on hover */
         }
 
-        .member-avatar { /* Placeholder for member image */
-            width: 90px;
-            height: 90px;
+        .member-avatar {
+            width: 80px; /* Smaller avatar */
+            height: 80px;
             border-radius: 50%;
-            background-color: var(--light-grey-bg); /* Placeholder background */
-            margin: 0 auto 20px auto;
+            background-color: var(--background-color); /* Darker placeholder bg */
+            border: 2px solid var(--border-color);
+            margin: 0 auto 15px auto; /* Adjusted margin */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem; /* Can show initials or icon */
-            color: var(--secondary-text-color);
-            /* Example: <img src="images/ralfinger_avatar.jpg" alt="RalFinger Avatar" class="member-avatar"> */
-            /* background-image: url('path/to/avatar.jpg'); */
-            /* background-size: cover; */
+            font-size: 1.5rem;
+            color: var(--secondary-accent); /* Use accent for placeholder text/icon */
+            overflow: hidden; /* Ensure img fits */
         }
-         .member-avatar img { /* If using img tag inside */
+         .member-avatar img {
              width: 100%;
              height: 100%;
-             border-radius: 50%;
              object-fit: cover;
          }
 
         .member-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+             color: var(--text-color);
         }
 
         .member-card .description {
             color: var(--secondary-text-color);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 20px;
-            min-height: 40px; /* Prevents cards jumping height */
+            min-height: 35px; /* Adjusted min height */
         }
 
         .member-card .button {
-            font-size: 0.9rem;
-            padding: 8px 20px;
+            font-size: 0.85rem;
+            padding: 8px 18px;
         }
 
         /* 8. About Section */
         #about p {
-            max-width: 750px;
+            max-width: 700px; /* Adjusted width */
             margin-left: auto;
             margin-right: auto;
-            text-align: center; /* Center align the about text */
+            text-align: center;
             margin-bottom: 15px;
+            color: var(--secondary-text-color);
         }
+         #about p:first-of-type { /* Make first paragraph slightly more prominent */
+             color: var(--text-color);
+             font-size: 1.05rem;
+         }
 
         /* 9. Donate Section */
         #donate {
-            background-color: var(--light-grey-bg);
-            text-align: center;
+             /* background-color: var(--surface-color); Already handled by section-alt */
+             text-align: center;
         }
 
         #donate p {
             margin-bottom: 30px;
-            max-width: 600px;
+            max-width: 550px; /* Adjusted width */
             margin-left: auto;
             margin-right: auto;
             color: var(--secondary-text-color);
@@ -309,55 +356,62 @@
 
         /* 10. Footer */
         .site-footer {
-            background-color: var(--text-color);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 40px 0;
+            background-color: var(--surface-color); /* Use surface color */
+            color: var(--secondary-text-color);
+            padding: 35px 0; /* Reduced padding */
             text-align: center;
-            font-size: 0.9rem;
-            margin-top: 50px; /* Space before footer */
+            font-size: 0.85rem;
+            margin-top: 40px; /* Reduced margin */
+            border-top: 1px solid var(--border-color);
         }
 
         .site-footer a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: underline;
+            color: var(--primary-accent); /* Use accent for links */
+            text-decoration: none;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
         }
 
          .site-footer a:hover {
-             color: white;
+             color: #ffa500; /* Lighter orange */
+             text-shadow: var(--glow-primary);
          }
 
         /* 11. Responsive Adjustments */
         @media (max-width: 992px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-            .section-title { font-size: 2.2rem; }
+            .hero h1 { font-size: 2.4rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 2rem; }
+            .hero-logo { max-width: 240px; }
         }
 
         @media (max-width: 768px) {
-            .site-header .container {
-                 padding-left: 20px;
-                 padding-right: 20px;
-             }
-             .main-navigation {
-                 display: none; /* Hide nav links */
-                 /* In a real implementation, JS would toggle a mobile menu */
-             }
-             .menu-toggle {
-                 display: block; /* Show burger icon */
-             }
+             :root { --header-height: 60px; } /* Smaller header on mobile */
+             html { scroll-padding-top: var(--header-height); }
 
-            .hero { padding: 80px 0 60px 0; }
+             .site-header .container {
+                 padding-left: 15px;
+                 padding-right: 15px;
+             }
+             .main-navigation { display: none; }
+             .menu-toggle { display: block; }
+             .brand-logo { height: 30px; }
+             .site-branding { font-size: 1.2rem; }
+
+
+            .hero { padding: 60px 0 40px 0; }
             .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
+            .hero p { font-size: 0.95rem; }
+            .hero-logo { max-width: 200px; margin-bottom: 25px;}
 
-            .section { padding: 60px 0; }
-            .section-title { font-size: 1.8rem; }
-            .section-subtitle { font-size: 1rem; margin-bottom: 40px;}
+            .section { padding: 50px 0; }
+            .section-title { font-size: 1.7rem; }
+            .section-subtitle { font-size: 0.9rem; margin-bottom: 35px;}
 
             .community-grid {
-                grid-template-columns: 1fr; /* Stack cards on smaller screens */
+                grid-template-columns: 1fr; /* Stack cards */
                 gap: 20px;
             }
+            .visual-break { height: 100px; } /* Smaller banner on mobile */
         }
 
     </style>
@@ -366,10 +420,14 @@
 
     <header class="site-header">
         <div class="container">
-            <a href="#home" class="site-branding">KI-Welten</a>
+            <a href="#home" class="site-branding">
+                <!-- Using the banner text logo here -->
+                <img src="images/ki-welten-banner-text.jpg" alt="KI-Welten Logo" class="brand-logo">
+                <!-- KI-Welten --> <!-- You can keep text or rely on logo -->
+            </a>
             <nav class="main-navigation">
                 <ul>
-                    <li><a href="#discord-join">Discord</a></li>
+                    <li><a href="#discord">Discord</a></li>
                     <li><a href="#community">Community</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#donate">Donate</a></li>
@@ -384,65 +442,62 @@
         <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="container">
-                <!-- Optional: Add an abstract graphic/icon here -->
-                <h1>Welcome to KI-Welten</h1>
+                <!-- Using the globe logo here -->
+                <img src="images/ki-welten-logo.jpg" alt="KI-Welten Community Logo" class="hero-logo">
+
+                <h1>Welcome to <span class="highlight">KI-Welten</span></h1>
                 <p>Your hub for exploring the frontiers of AI, sharing creative projects, and connecting with fellow enthusiasts.</p>
-                <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join the Discord Community</a>
-                 <!-- Optional secondary button -->
-                 <!-- <a href="#community" class="button button-secondary">See Our Work</a> -->
+                <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join the Discord</a>
+                <a href="#community" class="button button-secondary">See Member Work</a>
             </div>
         </section>
 
-        <!-- Discord Section (Alternative Style) -->
-         <section id="discord-join" class="section section-discord">
-             <div class="container">
-                 <h2>Ready to Dive In?</h2>
-                 <p>Join hundreds of members discussing AI trends, sharing resources, and collaborating on projects.</p>
-                 <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button">Join KI-Welten Discord</a>
-             </div>
+        <!-- Visual Break Section -->
+        <div class="visual-break">
+            <!-- This div is just for the background image -->
+        </div>
+
+
+        <!-- Discord Section (Simplified) -->
+        <section id="discord" class="section">
+            <div class="container">
+                <h2 class="section-title">Join the <span class="highlight">Conversation</span></h2>
+                 <p class="section-subtitle">Connect with hundreds of members discussing AI trends, sharing resources, and collaborating on creative projects daily.</p>
+                 <div style="text-align: center;"> <!-- Center button -->
+                    <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Enter KI-Welten Discord</a>
+                 </div>
+            </div>
          </section>
 
 
         <!-- Community Showcase Section -->
-        <section id="community" class="section">
+        <section id="community" class="section section-alt"> <!-- Added section-alt for bg color -->
             <div class="container">
-                <h2 class="section-title">Community Showcase</h2>
+                <h2 class="section-title">Community <span class="highlight">Showcase</span></h2>
                 <p class="section-subtitle">Discover the incredible models, images, and projects created by our talented members.</p>
 
                 <div class="community-grid">
                     <!-- Member Card: RalFinger -->
                     <div class="member-card">
-                        <div class="member-avatar">
-                            <!-- Option 1: Placeholder Text -->
-                             <!-- RF -->
-                            <!-- Option 2: Use an actual image if available -->
-                             <!-- <img src="images/ralfinger_avatar.png" alt="RalFinger Avatar"> -->
-                        </div>
+                        <div class="member-avatar"> RF </div> <!-- Placeholder Initials -->
                         <h3>RalFinger</h3>
                         <p class="description">Creator of diverse AI models and captivating images. Check out the gallery on Civitai.</p>
                         <a href="https://civitai.com/user/RalFinger" target="_blank" class="button button-secondary">View Civitai Profile</a>
                     </div>
 
-                    <!-- === Add More Member Cards Below === -->
-                    <!-- Copy the structure above for new members -->
-                    <!-- Example Placeholder Card:
+                    <!-- Example Placeholder Card: -->
                     <div class="member-card">
-                         <div class="member-avatar"> AI </div>
-                         <h3>Another Member</h3>
-                         <p class="description">Expert in [Specific Area] and shares helpful guides.</p>
-                         <a href="#" target="_blank" class="button button-secondary">View Profile</a>
-                    </div>
-                    -->
-                     <div class="member-card">
-                         <div class="member-avatar"> ✨ </div> <!-- Placeholder Icon -->
+                         <div class="member-avatar"> ✨ </div>
                          <h3>Future Member</h3>
                          <p class="description">Showcasing amazing AI art or innovative models soon!</p>
-                         <a href="#" class="button button-secondary" style="opacity: 0.5; pointer-events: none;">Coming Soon</a> <!-- Disabled look -->
+                         <a href="#" class="button button-secondary" style="opacity: 0.6; pointer-events: none;">Coming Soon</a>
                     </div>
+
+                     <!-- Call to Action Card: -->
                      <div class="member-card">
-                         <div class="member-avatar"> 🚀 </div> <!-- Placeholder Icon -->
+                         <div class="member-avatar"> 🚀 </div>
                          <h3>Your Name Here?</h3>
-                         <p class="description">Join the community and get your work featured!</p>
+                         <p class="description">Join the community and get your work featured on our page!</p>
                          <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join Discord</a>
                     </div>
                      <!-- === End Add More Member Cards === -->
@@ -454,40 +509,21 @@
         <!-- About Us Section -->
         <section id="about" class="section">
             <div class="container">
-                <h2 class="section-title">About KI-Welten</h2>
+                <h2 class="section-title">About <span class="highlight">KI-Welten</span></h2>
                 <p>
-                    [This is a placeholder. Describe your community's core purpose here. Example: KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.]
+                    KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.
                 </p>
                 <p>
-                    [Add more detail. Example: We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI.]
+                    We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI. [Add more specific details later!]
                 </p>
-                 <!-- Optional: Could add icons/small graphics here representing key areas (e.g., art, tech, community) -->
             </div>
         </section>
 
         <!-- Donate Section -->
-        <section id="donate" class="section">
+        <section id="donate" class="section section-alt"> <!-- Added section-alt for bg color -->
             <div class="container">
-                <h2 class="section-title">Support Our Community</h2>
-                <p>Enjoying the KI-Welten community? Your support helps us maintain resources, organize events, and grow together. Consider buying a coffee!</p>
-                <a href="https://ko-fi.com/ralfingerai" target="_blank" class="button button-kofi">
-                    <!-- You could add a small coffee cup icon here -->
-                     ☕ Buy me a Coffee on Ko-fi
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 KI-Welten. All rights reserved. | <a href="https://discord.gg/g5Pb8qNUuP" target="_blank">Join us on Discord</a></p>
-            <!-- Optional: Add links to privacy policy or other relevant pages -->
-        </div>
-    </footer>
-
-    <!-- Optional: Add JavaScript file link here if needed for mobile menu toggle etc. -->
-    <!-- <script src="script.js"></script> -->
-
-</body>
-</html>
+                <h2 class="section-title">Support Our <span class="highlight">Community</span></h2>
+                <p class="section-subtitle">Your support helps us maintain resources, organize potential events or contests, and grow the KI-Welten community together.</p>
+                <div style="text-align: center;">
+                    <a href="https://ko-fi.com/ralfingerai" target="_blank" class="button button-kofi">
+                         ☕ Buy me a Coffee on Ko-fi
