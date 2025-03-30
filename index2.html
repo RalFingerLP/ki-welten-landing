@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KI-Welten - AI & Creative Community</title>
     <style>
-        /* CSS Styles remain largely the same as the previous version */
+        /* CSS Styles remain the same as the previous version */
         /* ... (Keep all CSS from the previous response) ... */
         :root {
             --background-color: #08080B; --surface-color: #141418; --text-color: #e8e8e8;
@@ -25,7 +25,7 @@
         }
         #dynamic-background {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none; opacity: 0.85; /* Slightly higher opacity */
+            z-index: -1; pointer-events: none; opacity: 0.85;
         }
         .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
         .site-header {
@@ -105,119 +105,22 @@
 
     <header class="site-header">
         <!-- Header Content -->
-        <div class="container">
-            <a href="#home" class="site-branding">
-                <img src="images/ki-welten-logo.jpg" alt="KI-Welten Logo" class="brand-logo">
-            </a>
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="#community">Community</a></li>
-                    <li><a href="#staff">Staff</a></li>
-                    <li><a href="#about">About Us</a></li>
-                </ul>
-            </nav>
-             <div class="menu-toggle">☰</div>
-        </div>
+        <div class="container"> <a href="#home" class="site-branding"> <img src="images/ki-welten-logo.jpg" alt="KI-Welten Logo" class="brand-logo"> </a> <nav class="main-navigation"> <ul> <li><a href="#community">Community</a></li> <li><a href="#staff">Staff</a></li> <li><a href="#about">About Us</a></li> </ul> </nav> <div class="menu-toggle">☰</div> </div>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="container">
-                <img src="images/ki-welten-banner-text.jpg" alt="KI-Welten Community" class="hero-logo">
-                <h1>Welcome to <span class="highlight">KI-Welten</span></h1>
-                <p>Your hub for exploring the frontiers of AI, sharing creative projects, and connecting with fellow enthusiasts.</p>
-                <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join the Discord</a>
-                <a href="#community" class="button button-secondary">See Member Work</a>
-            </div>
-        </section>
-
+        <section id="home" class="hero"> <div class="container"> <img src="images/ki-welten-banner-text.jpg" alt="KI-Welten Community" class="hero-logo"> <h1>Welcome to <span class="highlight">KI-Welten</span></h1> <p>Your hub for exploring the frontiers of AI, sharing creative projects, and connecting with fellow enthusiasts.</p> <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join the Discord</a> <a href="#community" class="button button-secondary">See Member Work</a> </div> </section>
         <!-- Community Showcase Section -->
-        <section id="community" class="section section-alt">
-             <div class="container">
-                 <h2 class="section-title">Community <span class="highlight">Showcase</span></h2>
-                 <p class="section-subtitle">Discover the incredible models, images, and projects created by our general members.</p>
-                 <div class="card-grid">
-                      <div class="member-card">
-                          <div class="member-avatar"> ✨ </div>
-                          <h3>Community Member</h3>
-                          <p class="description">Showcasing amazing AI art or innovative models!</p>
-                          <a href="#" class="button button-secondary" style="opacity: 0.6; pointer-events: none;">View Profile</a>
-                     </div>
-                      <div class="member-card">
-                          <div class="member-avatar"> 🚀 </div>
-                          <h3>Your Name Here?</h3>
-                          <p class="description">Join the community and share your work!</p>
-                          <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join Discord</a>
-                     </div>
-                 </div>
-             </div>
-         </section>
-
+        <section id="community" class="section section-alt"> <div class="container"> <h2 class="section-title">Community <span class="highlight">Showcase</span></h2> <p class="section-subtitle">Discover the incredible models, images, and projects created by our general members.</p> <div class="card-grid"> <div class="member-card"> <div class="member-avatar"> ✨ </div> <h3>Community Member</h3> <p class="description">Showcasing amazing AI art or innovative models!</p> <a href="#" class="button button-secondary" style="opacity: 0.6; pointer-events: none;">View Profile</a> </div> <div class="member-card"> <div class="member-avatar"> 🚀 </div> <h3>Your Name Here?</h3> <p class="description">Join the community and share your work!</p> <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join Discord</a> </div> </div> </div> </section>
         <!-- Staff Showcase Section -->
-        <section id="staff" class="section">
-            <div class="container">
-                <h2 class="section-title">Meet the <span class="highlight">Team</span></h2>
-                <p class="section-subtitle">Our dedicated Admins and Moderators who help keep KI-Welten running smoothly.</p>
-                <h2 class="staff-role-heading admin">Admins</h2>
-                <div class="card-grid">
-                    <div class="member-card">
-                        <div class="member-avatar">RF<!-- <img src="..." alt="RalFinger Avatar"> --></div>
-                        <h3>RalFinger</h3><span class="role role-admin">Admin</span>
-                        <a href="https://civitai.com/user/RalFinger" target="_blank" class="button button-secondary">View Civitai Profile</a>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-avatar">MD<!-- <img src="..." alt="maDcaDDie Avatar"> --></div>
-                        <h3>maDcaDDie</h3><span class="role role-admin">Admin</span>
-                        <a href="https://civitai.com/user/maDcaDDie" target="_blank" class="button button-secondary">View Civitai Profile</a>
-                    </div>
-                     <div class="member-card">
-                        <div class="member-avatar">FX<!-- <img src="..." alt="Flushx Avatar"> --></div>
-                        <h3>Flushx</h3><span class="role role-admin">Admin</span>
-                        <a href="https://civitai.com/user/Flushx" target="_blank" class="button button-secondary">View Civitai Profile</a>
-                    </div>
-                </div>
-                <h2 class="staff-role-heading moderator">Moderators</h2>
-                 <div class="card-grid">
-                     <div class="member-card">
-                        <div class="member-avatar">DI<!-- <img src="..." alt="dark_infinity Avatar"> --></div>
-                        <h3>dark_infinity</h3><span class="role role-moderator">Moderator</span>
-                        <a href="https://civitai.com/user/dark_infinity" target="_blank" class="button button-secondary">View Civitai Profile</a>
-                    </div>
-                     <div class="member-card">
-                        <div class="member-avatar">RC<!-- <img src="..." alt="Roscosmos Avatar"> --></div>
-                        <h3>Roscosmos</h3><span class="role role-moderator">Moderator</span>
-                        <a href="https://civitai.com/user/Roscosmos" target="_blank" class="button button-secondary">View Civitai Profile</a>
-                    </div>
-                     <div class="member-card">
-                        <div class="member-avatar">DV<!-- <img src="..." alt="Dever Avatar"> --></div>
-                        <h3>Dever</h3><span class="role role-moderator">Moderator</span>
-                        <a href="https://civitai.com/user/Dever" target="_blank" class="button button-secondary">View Civitai Profile</a>
-                    </div>
-                     <div class="member-card">
-                        <div class="member-avatar">CK<!-- <img src="..." alt="ChronoKnight Avatar"> --></div>
-                        <h3>ChronoKnight</h3><span class="role role-moderator">Moderator</span>
-                        <a href="https://civitai.com/user/ChronoKnight" target="_blank" class="button button-secondary">View Civitai Profile</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <section id="staff" class="section"> <div class="container"> <h2 class="section-title">Meet the <span class="highlight">Team</span></h2> <p class="section-subtitle">Our dedicated Admins and Moderators who help keep KI-Welten running smoothly.</p> <h2 class="staff-role-heading admin">Admins</h2> <div class="card-grid"> <div class="member-card"> <div class="member-avatar">RF</div> <h3>RalFinger</h3><span class="role role-admin">Admin</span> <a href="https://civitai.com/user/RalFinger" target="_blank" class="button button-secondary">View Civitai Profile</a> </div> <div class="member-card"> <div class="member-avatar">MD</div> <h3>maDcaDDie</h3><span class="role role-admin">Admin</span> <a href="https://civitai.com/user/maDcaDDie" target="_blank" class="button button-secondary">View Civitai Profile</a> </div> <div class="member-card"> <div class="member-avatar">FX</div> <h3>Flushx</h3><span class="role role-admin">Admin</span> <a href="https://civitai.com/user/Flushx" target="_blank" class="button button-secondary">View Civitai Profile</a> </div> </div> <h2 class="staff-role-heading moderator">Moderators</h2> <div class="card-grid"> <div class="member-card"> <div class="member-avatar">DI</div> <h3>dark_infinity</h3><span class="role role-moderator">Moderator</span> <a href="https://civitai.com/user/dark_infinity" target="_blank" class="button button-secondary">View Civitai Profile</a> </div> <div class="member-card"> <div class="member-avatar">RC</div> <h3>Roscosmos</h3><span class="role role-moderator">Moderator</span> <a href="https://civitai.com/user/Roscosmos" target="_blank" class="button button-secondary">View Civitai Profile</a> </div> <div class="member-card"> <div class="member-avatar">DV</div> <h3>Dever</h3><span class="role role-moderator">Moderator</span> <a href="https://civitai.com/user/Dever" target="_blank" class="button button-secondary">View Civitai Profile</a> </div> <div class="member-card"> <div class="member-avatar">CK</div> <h3>ChronoKnight</h3><span class="role role-moderator">Moderator</span> <a href="https://civitai.com/user/ChronoKnight" target="_blank" class="button button-secondary">View Civitai Profile</a> </div> </div> </div> </section>
         <!-- About Us Section -->
-        <section id="about" class="section section-alt">
-            <div class="container">
-                <h2 class="section-title">About <span class="highlight">KI-Welten</span></h2>
-                <p>KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.</p>
-                <p>We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI. [Add more specific details later!]</p>
-            </div>
-        </section>
-
+        <section id="about" class="section section-alt"> <div class="container"> <h2 class="section-title">About <span class="highlight">KI-Welten</span></h2> <p>KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.</p> <p>We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI. [Add more specific details later!]</p> </div> </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 KI-Welten. All rights reserved. | <a href="https://discord.gg/g5Pb8qNUuP" target="_blank">Join us on Discord</a></p>
-        </div>
+        <div class="container"> <p>&copy; 2024 KI-Welten. All rights reserved. | <a href="https://discord.gg/g5Pb8qNUuP" target="_blank">Join us on Discord</a></p> </div>
     </footer>
 
     <script>
@@ -225,24 +128,27 @@
         const ctx = canvas.getContext('2d');
         let particles = [];
         let attractors = [];
-        let mouse = { x: null, y: null, radius: 120 }; // Mouse influence radius
+        let mouse = { x: null, y: null, radius: 120 };
 
         // --- Configuration ---
-        const ATTRACTOR_COUNT = 5; // Number of "heavy" central points
-        const PARTICLE_COUNT = 150; // Number of orbiting particles
+        const ATTRACTOR_COUNT = 5;
+        const PARTICLE_COUNT = 150;
         const ATTRACTOR_BASE_SIZE = 10;
         const ATTRACTOR_MASS = 1500;
+        const ATTRACTOR_INITIAL_SPEED_MULT = 0.3; // <<< Increased speed multiplier for attractors
         const PARTICLE_BASE_SIZE_MAX = 3;
         const PARTICLE_BASE_SIZE_MIN = 1;
         const PARTICLE_MASS = 1;
-        const INITIAL_ORBITER_SPEED = 0.8; // Initial outward push for orbiters
-        const GRAVITATIONAL_CONSTANT = 0.05; // Strength of attraction (TUNE THIS)
-        const MOUSE_REPEL_FORCE = 2.5;    // How strongly mouse pushes away
-        const DAMPING = 0.99;           // General system damping (closer to 1 = less damping)
-        const COLLISION_DAMPING = 0.80;   // Bounce elasticity (lower = less bouncy)
-        const COLLISION_GLOW_DURATION = 15; // Frames the glow lasts
-        const COLLISION_SIZE_BUMP = 1.5; // Factor size increases on collision
-        const MIN_GRAVITY_DISTANCE_SQ = 25; // Minimum distance squared to prevent extreme forces
+        const INITIAL_ORBITER_SPEED = 0.8;
+        const GRAVITATIONAL_CONSTANT = 0.01; // <<< Reduced gravity (was 0.05)
+        const MOUSE_REPEL_FORCE = 2.5;
+        const DAMPING = 0.985; // <<< Slightly more damping (was 0.99)
+        const COLLISION_DAMPING = 0.80;
+        const COLLISION_GLOW_DURATION = 15;
+        const COLLISION_SIZE_BUMP = 1.5;
+        const MIN_GRAVITY_DISTANCE_SQ = 25;
+        const ATTRACTOR_REPULSION_DISTANCE_MULT = 1.8; // <<< Multiplier of sum of radii for repulsion range
+        const ATTRACTOR_REPULSION_STRENGTH = 0.8;  // <<< Bounce strength factor
         // --- End Configuration ---
 
         const computedStyle = getComputedStyle(document.documentElement);
@@ -254,15 +160,13 @@
         const collisionColors = [collisionPrimaryColor, collisionSecondaryColor];
 
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { /* ... same as before ... */ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
         window.addEventListener('mousemove', (event) => { mouse.x = event.clientX; mouse.y = event.clientY; });
         window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
         class Particle {
+            // constructor and draw methods remain the same as previous orbital version
             constructor(x, y, vx, vy, size, mass, colorIndex, isAttractor = false) {
                 this.x = x; this.y = y; this.vx = vx; this.vy = vy;
                 this.baseSize = size; this.size = size;
@@ -270,90 +174,62 @@
                 this.colorIndex = colorIndex;
                 this.isAttractor = isAttractor;
                 this.collisionTimer = 0;
-                this.currentSizeMultiplier = 1; // For collision pulse
+                this.currentSizeMultiplier = 1;
             }
+             draw() {
+                 let displaySize = this.baseSize * this.currentSizeMultiplier;
+                 let currentColor = (this.collisionTimer > 0) ? collisionColors[this.colorIndex] : particleColors[this.colorIndex];
+                 if (this.isAttractor && this.collisionTimer <= 0) {
+                     // Optional: Slightly different base look for attractors
+                     // currentColor = `rgba(255, 255, 255, ${0.6 + Math.random() * 0.1})`; // Subtle white shimmer
+                 }
+                 ctx.fillStyle = currentColor; ctx.beginPath(); ctx.arc(this.x, this.y, displaySize, 0, Math.PI * 2); ctx.closePath(); ctx.fill();
+             }
+             applyForce(fx, fy) { this.vx += fx / this.mass; this.vy += fy / this.mass; }
+             collide() { this.collisionTimer = COLLISION_GLOW_DURATION; this.currentSizeMultiplier = COLLISION_SIZE_BUMP; }
 
-            draw() {
-                let displaySize = this.baseSize * this.currentSizeMultiplier;
-                let currentColor;
-
-                if (this.collisionTimer > 0) {
-                    currentColor = collisionColors[this.colorIndex];
-                } else {
-                    currentColor = particleColors[this.colorIndex];
-                }
-                // Attractors could have a different base color/style if desired
-                // if (this.isAttractor) { currentColor = 'rgba(255, 255, 255, 0.8)'; }
-
-                ctx.fillStyle = currentColor;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, displaySize, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
-            }
-
-            applyForce(fx, fy) {
-                // Acceleration = Force / Mass
-                this.vx += fx / this.mass;
-                this.vy += fy / this.mass;
-            }
-
-            update(deltaTime = 1) { // deltaTime for potential future frame-rate independence
-
+            update(deltaTime = 1) {
                 // Apply Gravity only to non-attractors
                 if (!this.isAttractor) {
-                    let totalFx = 0;
-                    let totalFy = 0;
+                    let totalFx = 0; let totalFy = 0;
                     attractors.forEach(attractor => {
-                        const dx = attractor.x - this.x;
-                        const dy = attractor.y - this.y;
+                        const dx = attractor.x - this.x; const dy = attractor.y - this.y;
                         let distanceSq = dx * dx + dy * dy;
-                        distanceSq = Math.max(distanceSq, MIN_GRAVITY_DISTANCE_SQ); // Prevent extreme forces at close range
-
+                        distanceSq = Math.max(distanceSq, MIN_GRAVITY_DISTANCE_SQ);
                         const distance = Math.sqrt(distanceSq);
                         const forceMagnitude = (GRAVITATIONAL_CONSTANT * attractor.mass * this.mass) / distanceSq;
-
-                        totalFx += (dx / distance) * forceMagnitude;
-                        totalFy += (dy / distance) * forceMagnitude;
+                        totalFx += (dx / distance) * forceMagnitude; totalFy += (dy / distance) * forceMagnitude;
                     });
                     this.applyForce(totalFx, totalFy);
                 }
 
-                // Apply Mouse Repulsion to ALL particles
+                // Apply Mouse Repulsion
                 if (mouse.x !== null && mouse.y !== null) {
-                    let dx = this.x - mouse.x; // Force away from mouse
-                    let dy = this.y - mouse.y;
+                    let dx = this.x - mouse.x; let dy = this.y - mouse.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius + this.size) {
-                        let forceDirectionX = dx / distance;
-                        let forceDirectionY = dy / distance;
-                        let force = (mouse.radius + this.size - distance) / (mouse.radius + this.size); // Strength based on proximity
-                        let repelFx = forceDirectionX * force * MOUSE_REPEL_FORCE * (this.isAttractor ? 0.1 : 1); // Attractors less affected by mouse
-                        let repelFy = forceDirectionY * force * MOUSE_REPEL_FORCE * (this.isAttractor ? 0.1 : 1);
-                        // Directly modify velocity for repulsion (simpler than applying as force over time)
-                        this.vx += repelFx * 0.1; // Adjust multiplier for responsiveness
-                        this.vy += repelFy * 0.1;
+                    let interactionRadius = mouse.radius + this.baseSize * this.currentSizeMultiplier;
+                    if (distance < interactionRadius) {
+                        let forceDirectionX = dx / distance; let forceDirectionY = dy / distance;
+                        let force = (interactionRadius - distance) / interactionRadius;
+                        let repelFx = forceDirectionX * force * MOUSE_REPEL_FORCE * (this.isAttractor ? 0.2 : 1); // Attractors less affected
+                        let repelFy = forceDirectionY * force * MOUSE_REPEL_FORCE * (this.isAttractor ? 0.2 : 1);
+                        this.vx += repelFx * 0.1; this.vy += repelFy * 0.1;
                     }
                 }
 
                  // Update position
-                 this.x += this.vx * deltaTime;
-                 this.y += this.vy * deltaTime;
-
+                 this.x += this.vx * deltaTime; this.y += this.vy * deltaTime;
                  // Apply damping
-                 this.vx *= DAMPING;
-                 this.vy *= DAMPING;
+                 this.vx *= DAMPING; this.vy *= DAMPING;
 
                  // Handle collision effect timer and size pulse
                  if (this.collisionTimer > 0) {
                     this.collisionTimer--;
-                    // Simple size pulse: grow then shrink back
-                    let progress = (COLLISION_GLOW_DURATION - this.collisionTimer) / COLLISION_GLOW_DURATION; // 0 to 1
-                    this.currentSizeMultiplier = 1 + Math.sin(progress * Math.PI) * (COLLISION_SIZE_BUMP - 1); // Grows then shrinks
+                    let progress = (COLLISION_GLOW_DURATION - this.collisionTimer) / COLLISION_GLOW_DURATION;
+                    this.currentSizeMultiplier = 1 + Math.sin(progress * Math.PI) * (COLLISION_SIZE_BUMP - 1);
                  } else {
-                    this.currentSizeMultiplier = 1; // Back to normal size
+                    this.currentSizeMultiplier = 1;
                  }
-
 
                 // Wall collision (wrap around) - Check against display size
                 let displaySize = this.baseSize * this.currentSizeMultiplier;
@@ -364,36 +240,64 @@
 
                 this.draw();
             }
-
-             // Method to trigger collision visual effect
-             collide() {
-                this.collisionTimer = COLLISION_GLOW_DURATION;
-                this.currentSizeMultiplier = COLLISION_SIZE_BUMP; // Start at max bump
-            }
         }
 
-        function handleCollisions() {
-             const allParticles = [...attractors, ...particles]; // Combine for collision check
+        function handleInteractions() { // Renamed from handleCollisions for clarity
+             const allParticles = [...attractors, ...particles];
              for (let i = 0; i < allParticles.length; i++) {
                  for (let j = i + 1; j < allParticles.length; j++) {
                      const p1 = allParticles[i];
                      const p2 = allParticles[j];
-                     const dx = p2.x - p1.x;
-                     const dy = p2.y - p1.y;
+                     const dx = p2.x - p1.x; const dy = p2.y - p1.y;
                      const distance = Math.sqrt(dx * dx + dy * dy);
-                     // Use current display size for collision check
-                     const minDist = (p1.baseSize * p1.currentSizeMultiplier) + (p2.baseSize * p2.currentSizeMultiplier);
+                     const p1Size = p1.baseSize * p1.currentSizeMultiplier;
+                     const p2Size = p2.baseSize * p2.currentSizeMultiplier;
+                     const minDist = p1Size + p2Size;
 
+                    // --- Attractor-Attractor Repulsion ---
+                    if (p1.isAttractor && p2.isAttractor) {
+                         const repulsionDist = (p1.baseSize + p2.baseSize) * ATTRACTOR_REPULSION_DISTANCE_MULT;
+                         if (distance < repulsionDist && distance > 0) { // distance > 0 prevents division by zero
+                            p1.collide(); // Trigger visual effect
+                            p2.collide();
+
+                            // Apply direct repulsive velocity change (bounce)
+                            const nx = dx / distance; // Normal vector
+                            const ny = dy / distance;
+                            // Strength depends on proximity
+                            const repelStrength = ATTRACTOR_REPULSION_STRENGTH * (repulsionDist - distance) / repulsionDist;
+                            // Apply velocity change directly, inversely proportional to mass (though masses are equal here)
+                            const totalMass = p1.mass + p2.mass; // Although attractors have same mass
+                            p1.vx -= nx * repelStrength * (p2.mass / totalMass) * 2; // Factor of 2 for bounce feel
+                            p1.vy -= ny * repelStrength * (p2.mass / totalMass) * 2;
+                            p2.vx += nx * repelStrength * (p1.mass / totalMass) * 2;
+                            p2.vy += ny * repelStrength * (p1.mass / totalMass) * 2;
+
+                            // Optional: Resolve overlap to prevent sticking (can be less precise for repulsion)
+                             const overlap = repulsionDist - distance;
+                             if (overlap > 0) {
+                                 const p1Move = overlap * 0.5 * nx; // Equal movement as masses are same
+                                 const p2Move = overlap * 0.5 * nx;
+                                 p1.x -= p1Move; p1.y -= overlap * 0.5 * ny;
+                                 p2.x += p2Move; p2.y += overlap * 0.5 * ny;
+                             }
+
+                             continue; // Skip normal collision physics for this pair
+                         }
+                     }
+                     // --- End Attractor Repulsion ---
+
+
+                     // --- Normal Particle Collisions ---
                      if (distance < minDist) {
-                         p1.collide(); // Trigger visual effect
-                         p2.collide();
+                         p1.collide(); p2.collide(); // Still trigger visual effect
 
-                         // Collision Response (using mass now)
+                         // Collision Response (same physics as before)
                          const overlap = minDist - distance;
                          const nx = dx / distance; const ny = dy / distance;
-
-                         // Resolve overlap slightly weighted by inverse mass (lighter moves more)
                          const totalInvMass = (1 / p1.mass) + (1 / p2.mass);
+                         if (totalInvMass <= 0) continue; // Prevent division by zero if mass is infinite
+
                          const p1Move = overlap * (1 / p1.mass) / totalInvMass;
                          const p2Move = overlap * (1 / p2.mass) / totalInvMass;
                          p1.x -= p1Move * nx; p1.y -= p1Move * ny;
@@ -401,43 +305,38 @@
 
                          const rvx = p1.vx - p2.vx; const rvy = p1.vy - p2.vy;
                          const velAlongNormal = rvx * nx + rvy * ny;
-                         if (velAlongNormal > 0) continue; // Moving apart
+                         if (velAlongNormal > 0) continue;
 
-                         // Calculate impulse scalar considering mass and restitution
                          let impulse = -(1 + COLLISION_DAMPING) * velAlongNormal / totalInvMass;
-
-                         // Apply impulse (Force = Impulse / Time, DeltaV = Impulse / Mass)
                          p1.vx -= impulse * (1 / p1.mass) * nx; p1.vy -= impulse * (1 / p1.mass) * ny;
                          p2.vx += impulse * (1 / p2.mass) * nx; p2.vy += impulse * (1 / p2.mass) * ny;
                      }
+                    // --- End Normal Particle Collisions ---
                  }
              }
          }
 
 
         function initParticles() {
-            particles = [];
-            attractors = [];
+            particles = []; attractors = [];
 
-            // Create Attractors (few, heavy, slow/still)
+            // Create Attractors
             for (let i = 0; i < ATTRACTOR_COUNT; i++) {
-                let size = ATTRACTOR_BASE_SIZE + Math.random() * 5; // Slightly variable attractor size
-                // Position attractors somewhat centrally, but not exactly overlapping
-                let padding = 0.2; // 20% padding from edges
+                let size = ATTRACTOR_BASE_SIZE + Math.random() * 5;
+                let padding = 0.2;
                 let x = canvas.width * (padding + Math.random() * (1 - 2 * padding));
                 let y = canvas.height * (padding + Math.random() * (1 - 2 * padding));
-                let vx = (Math.random() - 0.5) * 0.1; // Very low initial speed
-                let vy = (Math.random() - 0.5) * 0.1;
+                // Increased initial speed for attractors
+                let vx = (Math.random() - 0.5) * ATTRACTOR_INITIAL_SPEED_MULT;
+                let vy = (Math.random() - 0.5) * ATTRACTOR_INITIAL_SPEED_MULT;
                 let colorIndex = Math.floor(Math.random() * particleColors.length);
                 attractors.push(new Particle(x, y, vx, vy, size, ATTRACTOR_MASS, colorIndex, true));
             }
 
-            // Create Orbiting Particles (many, light, initial velocity)
+            // Create Orbiting Particles
             for (let i = 0; i < PARTICLE_COUNT; i++) {
                 let size = Math.random() * (PARTICLE_BASE_SIZE_MAX - PARTICLE_BASE_SIZE_MIN) + PARTICLE_BASE_SIZE_MIN;
-                let x = Math.random() * canvas.width;
-                let y = Math.random() * canvas.height;
-                // Give some initial random velocity for orbit potential
+                let x = Math.random() * canvas.width; let y = Math.random() * canvas.height;
                 let vx = (Math.random() - 0.5) * INITIAL_ORBITER_SPEED;
                 let vy = (Math.random() - 0.5) * INITIAL_ORBITER_SPEED;
                 let colorIndex = Math.floor(Math.random() * particleColors.length);
@@ -446,25 +345,18 @@
         }
 
         function animate() {
-            // Clear canvas (trails effect)
-            ctx.fillStyle = 'rgba(8, 8, 11, 0.25)'; // Slightly stronger trails
+            ctx.fillStyle = 'rgba(8, 8, 11, 0.25)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            handleCollisions(); // Check all particle pairs
+            handleInteractions(); // Renamed function
 
-            // Update all particles (attractors and orbiters)
             attractors.forEach(p => p.update());
             particles.forEach(p => p.update());
 
             requestAnimationFrame(animate);
         }
 
-        // --- Initial Setup ---
-        resizeCanvas();
-        initParticles();
-        animate();
-        // --- End Initial Setup ---
-
+        resizeCanvas(); initParticles(); animate();
     </script>
 
 </body>
