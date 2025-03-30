@@ -3,106 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI-Welten Community</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- You can add a Favicon link here later -->
-    <!-- Example: <link rel="icon" href="images/favicon.png" type="image/png"> -->
+    <title>KI-Welten - AI & Creative Community</title>
+    <style>
+        /* 1. Reset & Base Styles (Inspired by modern frameworks) */
+        :root {
+            --primary-color: #007bff; /* Vibrant blue accent */
+            --primary-hover-color: #0056b3; /* Darker blue for hover */
+            --kofi-color: #ff5e5b; /* Ko-fi brand color */
+            --kofi-hover-color: #e04441; /* Darker Ko-fi */
+            --text-color: #212529; /* Dark grey for text */
+            --secondary-text-color: #6c757d; /* Lighter grey for secondary text */
+            --background-color: #ffffff; /* White background */
+            --light-grey-bg: #f8f9fa; /* Light grey for section backgrounds */
+            --border-color: #dee2e6; /* Subtle border color */
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --header-height: 70px; /* Adjust as needed */
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--header-height); /* Offset for fixed header */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            font-size: 16px; /* Base font size */
+        }
+
+        /* 2. Layout Container */
+        .container {
+            max-width: 1140px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        /* 3. Header & Navigation */
+        .site-header {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            backdrop-filter: blur(10px); /* Blur effect for modern feel */
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            height: var(--header-height);
+        }
+
+        .site-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .site-branding {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .main-navigation ul {
+            list-style: none;
+            display: flex;
+            gap: 25px; /* Spacing between nav items */
+        }
+
+        .main-navigation a {
+            text-decoration: none;
+            color: var(--secondary-text-color);
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .main-navigation a:hover,
+        .main-navigation a.active { /* Add 'active' class dynamically if needed */
+            color: var(--primary-color);
+        }
+
+        /* Mobile Navigation (Basic - Placeholder for potential JS toggle) */
+        .menu-toggle {
+             display: none; /* Hidden on desktop */
+             /* Basic styling for a burger icon if you implement JS */
+             font-size: 1.5rem;
+             cursor: pointer;
+         }
+
+
+        /* 4. Hero Section */
+        .hero {
+            background-color: var(--light-grey-bg);
+            /* Placeholder for abstract graphic background */
+            /* background-image: linear-gradient(to right bottom, rgba(0, 123, 255, 0.05), rgba(0, 86, 179, 0.01)), url('images/abstract-bg.svg'); */
+            /* background-size: cover; */
+            padding: 100px 0 80px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 3rem; /* Larger title */
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--secondary-text-color);
+            margin-bottom: 35px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 5. Button Styles */
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px; /* Slightly more rounded */
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+            border: none;
+        }
+
+        .button:hover {
+            transform: translateY(-2px); /* Subtle lift effect */
+        }
+
+        .button-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: var(--primary-hover-color);
+            color: white;
+        }
+
+        .button-kofi {
+             background-color: var(--kofi-color);
+             color: white;
+        }
+         .button-kofi:hover {
+             background-color: var(--kofi-hover-color);
+             color: white;
+         }
+
+         .button-secondary {
+             background-color: transparent;
+             color: var(--primary-color);
+             border: 1px solid var(--primary-color);
+         }
+
+          .button-secondary:hover {
+              background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+              color: var(--primary-hover-color);
+              border-color: var(--primary-hover-color);
+          }
+
+
+        /* 6. Section Styling */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-discord {
+             background-color: var(--primary-color);
+             color: white;
+             text-align: center;
+         }
+         .section-discord h2 { color: white; }
+         .section-discord p { color: rgba(255,255,255,0.8); }
+         .section-discord .button {
+             background-color: white;
+             color: var(--primary-color);
+         }
+         .section-discord .button:hover {
+             background-color: #eee;
+             color: var(--primary-hover-color);
+         }
+
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary-text-color);
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 7. Community Showcase - Card Layout */
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .member-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px; /* More rounded cards */
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .member-avatar { /* Placeholder for member image */
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: var(--light-grey-bg); /* Placeholder background */
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem; /* Can show initials or icon */
+            color: var(--secondary-text-color);
+            /* Example: <img src="images/ralfinger_avatar.jpg" alt="RalFinger Avatar" class="member-avatar"> */
+            /* background-image: url('path/to/avatar.jpg'); */
+            /* background-size: cover; */
+        }
+         .member-avatar img { /* If using img tag inside */
+             width: 100%;
+             height: 100%;
+             border-radius: 50%;
+             object-fit: cover;
+         }
+
+        .member-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .member-card .description {
+            color: var(--secondary-text-color);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            min-height: 40px; /* Prevents cards jumping height */
+        }
+
+        .member-card .button {
+            font-size: 0.9rem;
+            padding: 8px 20px;
+        }
+
+        /* 8. About Section */
+        #about p {
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center; /* Center align the about text */
+            margin-bottom: 15px;
+        }
+
+        /* 9. Donate Section */
+        #donate {
+            background-color: var(--light-grey-bg);
+            text-align: center;
+        }
+
+        #donate p {
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--secondary-text-color);
+        }
+        #donate h2 { margin-bottom: 20px; }
+
+
+        /* 10. Footer */
+        .site-footer {
+            background-color: var(--text-color);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 50px; /* Space before footer */
+        }
+
+        .site-footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: underline;
+        }
+
+         .site-footer a:hover {
+             color: white;
+         }
+
+        /* 11. Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .section-title { font-size: 2.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .site-header .container {
+                 padding-left: 20px;
+                 padding-right: 20px;
+             }
+             .main-navigation {
+                 display: none; /* Hide nav links */
+                 /* In a real implementation, JS would toggle a mobile menu */
+             }
+             .menu-toggle {
+                 display: block; /* Show burger icon */
+             }
+
+            .hero { padding: 80px 0 60px 0; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+
+            .section { padding: 60px 0; }
+            .section-title { font-size: 1.8rem; }
+            .section-subtitle { font-size: 1rem; margin-bottom: 40px;}
+
+            .community-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller screens */
+                gap: 20px;
+            }
+        }
+
+    </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <h1>KI-Welten</h1>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#discord">Discord</a></li>
-                <li><a href="#community">Community</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#donate">Donate</a></li>
-            </ul>
-        </nav>
+    <header class="site-header">
+        <div class="container">
+            <a href="#home" class="site-branding">KI-Welten</a>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="#discord-join">Discord</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#donate">Donate</a></li>
+                </ul>
+            </nav>
+             <div class="menu-toggle">☰</div> <!-- Basic Burger Icon -->
+        </div>
     </header>
 
     <main>
-        <!-- Home / Welcome Section -->
+
+        <!-- Hero Section -->
         <section id="home" class="hero">
-            <div class="hero-content">
-                <h2>Welcome to KI-Welten!</h2>
-                <p>Your friendly AI & creative community hub.</p>
-                <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="cta-button">Join our Discord</a>
-                <!-- You can add a hero image here later using CSS background or an <img> tag -->
+            <div class="container">
+                <!-- Optional: Add an abstract graphic/icon here -->
+                <h1>Welcome to KI-Welten</h1>
+                <p>Your hub for exploring the frontiers of AI, sharing creative projects, and connecting with fellow enthusiasts.</p>
+                <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join the Discord Community</a>
+                 <!-- Optional secondary button -->
+                 <!-- <a href="#community" class="button button-secondary">See Our Work</a> -->
             </div>
         </section>
 
-        <!-- Discord Section -->
-        <section id="discord">
-            <h2>Join the Conversation</h2>
-            <p>Connect with fellow AI enthusiasts, share your creations, ask questions, and learn together.</p>
-            <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="cta-button">Join KI-Welten on Discord</a>
-        </section>
+        <!-- Discord Section (Alternative Style) -->
+         <section id="discord-join" class="section section-discord">
+             <div class="container">
+                 <h2>Ready to Dive In?</h2>
+                 <p>Join hundreds of members discussing AI trends, sharing resources, and collaborating on projects.</p>
+                 <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button">Join KI-Welten Discord</a>
+             </div>
+         </section>
 
-        <!-- Community Section -->
-        <section id="community">
-            <h2>Community Showcase</h2>
-            <p>Check out the amazing work from our members!</p>
 
-            <div class="community-members">
-                <!-- Member Card: RalFinger -->
-                <div class="member-card">
-                    <h3>RalFinger</h3>
-                    <p>Creator of models and images.</p>
-                    <!-- Add member image here later if desired -->
-                    <!-- <img src="images/ralfinger_avatar.jpg" alt="RalFinger Avatar" class="member-avatar"> -->
-                    <p>
-                        <a href="https://civitai.com/user/RalFinger" target="_blank">View Creations on Civitai</a>
-                    </p>
-                    <!-- You could add placeholder text for specific stats/models here -->
-                    <!-- <p>Featured Model: [Model Name]</p> -->
+        <!-- Community Showcase Section -->
+        <section id="community" class="section">
+            <div class="container">
+                <h2 class="section-title">Community Showcase</h2>
+                <p class="section-subtitle">Discover the incredible models, images, and projects created by our talented members.</p>
+
+                <div class="community-grid">
+                    <!-- Member Card: RalFinger -->
+                    <div class="member-card">
+                        <div class="member-avatar">
+                            <!-- Option 1: Placeholder Text -->
+                             <!-- RF -->
+                            <!-- Option 2: Use an actual image if available -->
+                             <!-- <img src="images/ralfinger_avatar.png" alt="RalFinger Avatar"> -->
+                        </div>
+                        <h3>RalFinger</h3>
+                        <p class="description">Creator of diverse AI models and captivating images. Check out the gallery on Civitai.</p>
+                        <a href="https://civitai.com/user/RalFinger" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+
+                    <!-- === Add More Member Cards Below === -->
+                    <!-- Copy the structure above for new members -->
+                    <!-- Example Placeholder Card:
+                    <div class="member-card">
+                         <div class="member-avatar"> AI </div>
+                         <h3>Another Member</h3>
+                         <p class="description">Expert in [Specific Area] and shares helpful guides.</p>
+                         <a href="#" target="_blank" class="button button-secondary">View Profile</a>
+                    </div>
+                    -->
+                     <div class="member-card">
+                         <div class="member-avatar"> ✨ </div> <!-- Placeholder Icon -->
+                         <h3>Future Member</h3>
+                         <p class="description">Showcasing amazing AI art or innovative models soon!</p>
+                         <a href="#" class="button button-secondary" style="opacity: 0.5; pointer-events: none;">Coming Soon</a> <!-- Disabled look -->
+                    </div>
+                     <div class="member-card">
+                         <div class="member-avatar"> 🚀 </div> <!-- Placeholder Icon -->
+                         <h3>Your Name Here?</h3>
+                         <p class="description">Join the community and get your work featured!</p>
+                         <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join Discord</a>
+                    </div>
+                     <!-- === End Add More Member Cards === -->
+
                 </div>
-
-                <!-- === Add More Member Cards Below === -->
-                <!-- Copy the structure above for new members -->
-                <!-- Example:
-                <div class="member-card">
-                    <h3>Another Member</h3>
-                    <p>Description of the member.</p>
-                    <p>
-                        <a href="[Link to their profile/gallery]" target="_blank">View Their Work</a>
-                    </p>
-                </div>
-                 -->
-                 <!-- === End Add More Member Cards === -->
-
             </div>
         </section>
 
         <!-- About Us Section -->
-        <section id="about">
-            <h2>About Us</h2>
-            <p>
-                [This is a placeholder section. Describe your community's mission, vision, history, or what makes it special here.]
-            </p>
-            <p>
-                We are passionate about... [fill in later]. Our goal is to... [fill in later].
-            </p>
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About KI-Welten</h2>
+                <p>
+                    [This is a placeholder. Describe your community's core purpose here. Example: KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.]
+                </p>
+                <p>
+                    [Add more detail. Example: We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI.]
+                </p>
+                 <!-- Optional: Could add icons/small graphics here representing key areas (e.g., art, tech, community) -->
+            </div>
         </section>
 
         <!-- Donate Section -->
-        <section id="donate">
-            <h2>Support the Community</h2>
-            <p>If you enjoy KI-Welten and want to support its growth and activities, consider buying me a coffee!</p>
-            <p>Donations help cover server costs, potential contest prizes, and future development.</p>
-            <a href="https://ko-fi.com/ralfingerai" target="_blank" class="cta-button kofi-button">
-                <!-- You can add a Ko-fi icon/image here later -->
-                Buy me a Coffee on Ko-fi
-            </a>
+        <section id="donate" class="section">
+            <div class="container">
+                <h2 class="section-title">Support Our Community</h2>
+                <p>Enjoying the KI-Welten community? Your support helps us maintain resources, organize events, and grow together. Consider buying a coffee!</p>
+                <a href="https://ko-fi.com/ralfingerai" target="_blank" class="button button-kofi">
+                    <!-- You could add a small coffee cup icon here -->
+                     ☕ Buy me a Coffee on Ko-fi
+                </a>
+            </div>
         </section>
+
     </main>
 
-    <footer>
-        <p>&copy; 2024 KI-Welten. All rights reserved.</p>
-        <!-- Optional: Add social links or other footer info here -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 KI-Welten. All rights reserved. | <a href="https://discord.gg/g5Pb8qNUuP" target="_blank">Join us on Discord</a></p>
+            <!-- Optional: Add links to privacy policy or other relevant pages -->
+        </div>
     </footer>
+
+    <!-- Optional: Add JavaScript file link here if needed for mobile menu toggle etc. -->
+    <!-- <script src="script.js"></script> -->
 
 </body>
 </html>
