@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Welten - AI & Creative Community</title>
+    <style>
+        /* CSS Styles remain largely the same as the previous version */
+        /* ... (Keep all CSS from the previous response) ... */
+        :root {
+            --background-color: #08080B; --surface-color: #141418; --text-color: #e8e8e8;
+            --secondary-text-color: #a0a0a0; --primary-accent: #ff8c00; --secondary-accent: #00bfff;
+            --border-color: #2a2a30; --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            --header-height: 70px; --glow-primary: 0 0 8px rgba(255, 140, 0, 0.6);
+            --glow-secondary: 0 0 8px rgba(0, 191, 255, 0.5);
+            --primary-accent-rgba: rgba(255, 140, 0, 0.7); --secondary-accent-rgba: rgba(0, 191, 255, 0.6);
+            --collision-primary-rgba: rgba(255, 160, 40, 0.95); --collision-secondary-rgba: rgba(60, 200, 255, 0.9);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; scroll-padding-top: var(--header-height); }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.7; color: var(--text-color); background-color: var(--background-color); font-size: 16px;
+            position: relative; overflow-x: hidden;
+        }
+        #dynamic-background {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.85; /* Slightly higher opacity */
+        }
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+        .site-header {
+            background-color: rgba(10, 10, 11, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 10; height: var(--header-height);
+        }
+        .site-header .container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+        .site-branding { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 600; text-decoration: none; color: var(--text-color); }
+        .brand-logo { height: 35px; width: auto; object-fit: contain; }
+        .main-navigation ul { list-style: none; display: flex; gap: 25px; }
+        .main-navigation a { text-decoration: none; color: var(--secondary-text-color); font-weight: 500; transition: color 0.2s ease, text-shadow 0.2s ease; padding-bottom: 5px; }
+        .main-navigation a:hover, .main-navigation a.active { color: var(--primary-accent); text-shadow: var(--glow-primary); }
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: var(--secondary-text-color); }
+        .hero { padding: 80px 0 60px 0; text-align: center; position: relative; overflow: hidden; border-bottom: 1px solid var(--border-color); }
+        .hero .container { position: relative; z-index: 1; }
+        .hero-logo { max-width: 320px; height: auto; margin: 0 auto 30px auto; display: block; }
+        .hero h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 15px; line-height: 1.2; color: var(--text-color); }
+        .hero h1 .highlight { color: var(--primary-accent); text-shadow: var(--glow-primary); }
+        .hero p { font-size: 1.1rem; color: var(--secondary-text-color); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .button {
+            display: inline-block; padding: 10px 25px; font-size: 0.95rem; font-weight: 600; text-align: center; text-decoration: none;
+            border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; letter-spacing: 0.5px;
+        }
+        .button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+        .button-primary { background-color: var(--primary-accent); color: var(--background-color); border-color: var(--primary-accent); }
+        .button-primary:hover { background-color: #ffA500; color: #000000; border-color: #ffA500; box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3); }
+        .button-secondary { background-color: transparent; color: var(--secondary-accent); border: 1px solid var(--secondary-accent); }
+        .button-secondary:hover { background-color: rgba(0, 191, 255, 0.1); color: #00dfff; border-color: #00dfff; box-shadow: 0 4px 15px rgba(0, 191, 255, 0.2); }
+        .section { padding: 70px 0; position: relative; z-index: 1; }
+        .section.section-alt {
+            background-color: rgba(20, 20, 24, 0.85); backdrop-filter: blur(5px);
+            border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
+         }
+        .section-title { font-size: 2.2rem; font-weight: 600; margin-bottom: 15px; text-align: center; color: var(--text-color); }
+        .section-title .highlight { color: var(--secondary-accent); text-shadow: var(--glow-secondary); }
+        .section-subtitle { font-size: 1rem; color: var(--secondary-text-color); text-align: center; margin-bottom: 45px; max-width: 550px; margin-left: auto; margin-right: auto; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 25px; }
+        .staff-role-heading {
+            font-size: 1.6rem; font-weight: 600; color: var(--text-color); margin-top: 40px; margin-bottom: 25px;
+            text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
+        }
+        .staff-role-heading.admin { border-color: var(--primary-accent); }
+        .staff-role-heading.moderator { border-color: var(--secondary-accent); }
+        .member-card {
+            background-color: rgba(20, 20, 24, 0.9); backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color); border-radius: 10px; padding: 25px; text-align: center;
+            box-shadow: var(--card-shadow); transition: all 0.2s ease-in-out;
+        }
+        .member-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); border-color: var(--primary-accent); }
+        .member-avatar {
+            width: 80px; height: 80px; border-radius: 50%; background-color: var(--background-color); border: 2px solid var(--border-color);
+            margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+            font-weight: 600; color: var(--secondary-accent); overflow: hidden;
+        }
+        .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .member-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--text-color); }
+        .member-card .description { color: var(--secondary-text-color); font-size: 0.9rem; margin-bottom: 20px; min-height: 35px; }
+        .member-card .role { font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .member-card .role.role-admin { color: var(--primary-accent); }
+        .member-card .role.role-moderator { color: var(--secondary-accent); }
+        .member-card .button { font-size: 0.85rem; padding: 8px 18px; }
+        #about p { max-width: 700px; margin: 0 auto 15px auto; text-align: center; color: var(--secondary-text-color); }
+        #about p:first-of-type { color: var(--text-color); font-size: 1.05rem; }
+        .site-footer {
+            background-color: var(--surface-color); color: var(--secondary-text-color); padding: 35px 0; text-align: center;
+            font-size: 0.85rem; margin-top: 40px; border-top: 1px solid var(--border-color); position: relative; z-index: 1;
+        }
+        .site-footer a { color: var(--primary-accent); text-decoration: none; transition: color 0.2s ease, text-shadow 0.2s ease; }
+        .site-footer a:hover { color: #ffa500; text-shadow: var(--glow-primary); }
+        @media (max-width: 992px) { /* ... */ }
+        @media (max-width: 768px) { /* ... */ }
+
+    </style>
+</head>
+<body>
+    <canvas id="dynamic-background"></canvas>
+
+    <header class="site-header">
+        <!-- Header Content -->
+        <div class="container">
+            <a href="#home" class="site-branding">
+                <img src="images/ki-welten-logo.jpg" alt="KI-Welten Logo" class="brand-logo">
+            </a>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#staff">Staff</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </nav>
+             <div class="menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <img src="images/ki-welten-banner-text.jpg" alt="KI-Welten Community" class="hero-logo">
+                <h1>Welcome to <span class="highlight">KI-Welten</span></h1>
+                <p>Your hub for exploring the frontiers of AI, sharing creative projects, and connecting with fellow enthusiasts.</p>
+                <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join the Discord</a>
+                <a href="#community" class="button button-secondary">See Member Work</a>
+            </div>
+        </section>
+
+        <!-- Community Showcase Section -->
+        <section id="community" class="section section-alt">
+             <div class="container">
+                 <h2 class="section-title">Community <span class="highlight">Showcase</span></h2>
+                 <p class="section-subtitle">Discover the incredible models, images, and projects created by our general members.</p>
+                 <div class="card-grid">
+                      <div class="member-card">
+                          <div class="member-avatar"> ✨ </div>
+                          <h3>Community Member</h3>
+                          <p class="description">Showcasing amazing AI art or innovative models!</p>
+                          <a href="#" class="button button-secondary" style="opacity: 0.6; pointer-events: none;">View Profile</a>
+                     </div>
+                      <div class="member-card">
+                          <div class="member-avatar"> 🚀 </div>
+                          <h3>Your Name Here?</h3>
+                          <p class="description">Join the community and share your work!</p>
+                          <a href="https://discord.gg/g5Pb8qNUuP" target="_blank" class="button button-primary">Join Discord</a>
+                     </div>
+                 </div>
+             </div>
+         </section>
+
+        <!-- Staff Showcase Section -->
+        <section id="staff" class="section">
+            <div class="container">
+                <h2 class="section-title">Meet the <span class="highlight">Team</span></h2>
+                <p class="section-subtitle">Our dedicated Admins and Moderators who help keep KI-Welten running smoothly.</p>
+                <h2 class="staff-role-heading admin">Admins</h2>
+                <div class="card-grid">
+                    <div class="member-card">
+                        <div class="member-avatar">RF<!-- <img src="..." alt="RalFinger Avatar"> --></div>
+                        <h3>RalFinger</h3><span class="role role-admin">Admin</span>
+                        <a href="https://civitai.com/user/RalFinger" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">MD<!-- <img src="..." alt="maDcaDDie Avatar"> --></div>
+                        <h3>maDcaDDie</h3><span class="role role-admin">Admin</span>
+                        <a href="https://civitai.com/user/maDcaDDie" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-avatar">FX<!-- <img src="..." alt="Flushx Avatar"> --></div>
+                        <h3>Flushx</h3><span class="role role-admin">Admin</span>
+                        <a href="https://civitai.com/user/Flushx" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+                </div>
+                <h2 class="staff-role-heading moderator">Moderators</h2>
+                 <div class="card-grid">
+                     <div class="member-card">
+                        <div class="member-avatar">DI<!-- <img src="..." alt="dark_infinity Avatar"> --></div>
+                        <h3>dark_infinity</h3><span class="role role-moderator">Moderator</span>
+                        <a href="https://civitai.com/user/dark_infinity" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-avatar">RC<!-- <img src="..." alt="Roscosmos Avatar"> --></div>
+                        <h3>Roscosmos</h3><span class="role role-moderator">Moderator</span>
+                        <a href="https://civitai.com/user/Roscosmos" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-avatar">DV<!-- <img src="..." alt="Dever Avatar"> --></div>
+                        <h3>Dever</h3><span class="role role-moderator">Moderator</span>
+                        <a href="https://civitai.com/user/Dever" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-avatar">CK<!-- <img src="..." alt="ChronoKnight Avatar"> --></div>
+                        <h3>ChronoKnight</h3><span class="role role-moderator">Moderator</span>
+                        <a href="https://civitai.com/user/ChronoKnight" target="_blank" class="button button-secondary">View Civitai Profile</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">About <span class="highlight">KI-Welten</span></h2>
+                <p>KI-Welten (AI Worlds) is a passionate community dedicated to the exploration and application of artificial intelligence, focusing on creative pursuits like image generation, model training, and collaborative projects.</p>
+                <p>We aim to foster a supportive and inspiring environment where members of all skill levels can learn, share their knowledge, showcase their creations, and push the boundaries of what's possible with AI. [Add more specific details later!]</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 KI-Welten. All rights reserved. | <a href="https://discord.gg/g5Pb8qNUuP" target="_blank">Join us on Discord</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('dynamic-background');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let attractors = [];
+        let mouse = { x: null, y: null, radius: 120 }; // Mouse influence radius
+
+        // --- Configuration ---
+        const ATTRACTOR_COUNT = 5; // Number of "heavy" central points
+        const PARTICLE_COUNT = 150; // Number of orbiting particles
+        const ATTRACTOR_BASE_SIZE = 10;
+        const ATTRACTOR_MASS = 1500;
+        const PARTICLE_BASE_SIZE_MAX = 3;
+        const PARTICLE_BASE_SIZE_MIN = 1;
+        const PARTICLE_MASS = 1;
+        const INITIAL_ORBITER_SPEED = 0.8; // Initial outward push for orbiters
+        const GRAVITATIONAL_CONSTANT = 0.05; // Strength of attraction (TUNE THIS)
+        const MOUSE_REPEL_FORCE = 2.5;    // How strongly mouse pushes away
+        const DAMPING = 0.99;           // General system damping (closer to 1 = less damping)
+        const COLLISION_DAMPING = 0.80;   // Bounce elasticity (lower = less bouncy)
+        const COLLISION_GLOW_DURATION = 15; // Frames the glow lasts
+        const COLLISION_SIZE_BUMP = 1.5; // Factor size increases on collision
+        const MIN_GRAVITY_DISTANCE_SQ = 25; // Minimum distance squared to prevent extreme forces
+        // --- End Configuration ---
+
+        const computedStyle = getComputedStyle(document.documentElement);
+        const primaryColor = computedStyle.getPropertyValue('--primary-accent-rgba').trim();
+        const secondaryColor = computedStyle.getPropertyValue('--secondary-accent-rgba').trim();
+        const collisionPrimaryColor = computedStyle.getPropertyValue('--collision-primary-rgba').trim();
+        const collisionSecondaryColor = computedStyle.getPropertyValue('--collision-secondary-rgba').trim();
+        const particleColors = [primaryColor, secondaryColor];
+        const collisionColors = [collisionPrimaryColor, collisionSecondaryColor];
+
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (event) => { mouse.x = event.clientX; mouse.y = event.clientY; });
+        window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+
+        class Particle {
+            constructor(x, y, vx, vy, size, mass, colorIndex, isAttractor = false) {
+                this.x = x; this.y = y; this.vx = vx; this.vy = vy;
+                this.baseSize = size; this.size = size;
+                this.mass = mass;
+                this.colorIndex = colorIndex;
+                this.isAttractor = isAttractor;
+                this.collisionTimer = 0;
+                this.currentSizeMultiplier = 1; // For collision pulse
+            }
+
+            draw() {
+                let displaySize = this.baseSize * this.currentSizeMultiplier;
+                let currentColor;
+
+                if (this.collisionTimer > 0) {
+                    currentColor = collisionColors[this.colorIndex];
+                } else {
+                    currentColor = particleColors[this.colorIndex];
+                }
+                // Attractors could have a different base color/style if desired
+                // if (this.isAttractor) { currentColor = 'rgba(255, 255, 255, 0.8)'; }
+
+                ctx.fillStyle = currentColor;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, displaySize, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            applyForce(fx, fy) {
+                // Acceleration = Force / Mass
+                this.vx += fx / this.mass;
+                this.vy += fy / this.mass;
+            }
+
+            update(deltaTime = 1) { // deltaTime for potential future frame-rate independence
+
+                // Apply Gravity only to non-attractors
+                if (!this.isAttractor) {
+                    let totalFx = 0;
+                    let totalFy = 0;
+                    attractors.forEach(attractor => {
+                        const dx = attractor.x - this.x;
+                        const dy = attractor.y - this.y;
+                        let distanceSq = dx * dx + dy * dy;
+                        distanceSq = Math.max(distanceSq, MIN_GRAVITY_DISTANCE_SQ); // Prevent extreme forces at close range
+
+                        const distance = Math.sqrt(distanceSq);
+                        const forceMagnitude = (GRAVITATIONAL_CONSTANT * attractor.mass * this.mass) / distanceSq;
+
+                        totalFx += (dx / distance) * forceMagnitude;
+                        totalFy += (dy / distance) * forceMagnitude;
+                    });
+                    this.applyForce(totalFx, totalFy);
+                }
+
+                // Apply Mouse Repulsion to ALL particles
+                if (mouse.x !== null && mouse.y !== null) {
+                    let dx = this.x - mouse.x; // Force away from mouse
+                    let dy = this.y - mouse.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius + this.size) {
+                        let forceDirectionX = dx / distance;
+                        let forceDirectionY = dy / distance;
+                        let force = (mouse.radius + this.size - distance) / (mouse.radius + this.size); // Strength based on proximity
+                        let repelFx = forceDirectionX * force * MOUSE_REPEL_FORCE * (this.isAttractor ? 0.1 : 1); // Attractors less affected by mouse
+                        let repelFy = forceDirectionY * force * MOUSE_REPEL_FORCE * (this.isAttractor ? 0.1 : 1);
+                        // Directly modify velocity for repulsion (simpler than applying as force over time)
+                        this.vx += repelFx * 0.1; // Adjust multiplier for responsiveness
+                        this.vy += repelFy * 0.1;
+                    }
+                }
+
+                 // Update position
+                 this.x += this.vx * deltaTime;
+                 this.y += this.vy * deltaTime;
+
+                 // Apply damping
+                 this.vx *= DAMPING;
+                 this.vy *= DAMPING;
+
+                 // Handle collision effect timer and size pulse
+                 if (this.collisionTimer > 0) {
+                    this.collisionTimer--;
+                    // Simple size pulse: grow then shrink back
+                    let progress = (COLLISION_GLOW_DURATION - this.collisionTimer) / COLLISION_GLOW_DURATION; // 0 to 1
+                    this.currentSizeMultiplier = 1 + Math.sin(progress * Math.PI) * (COLLISION_SIZE_BUMP - 1); // Grows then shrinks
+                 } else {
+                    this.currentSizeMultiplier = 1; // Back to normal size
+                 }
+
+
+                // Wall collision (wrap around) - Check against display size
+                let displaySize = this.baseSize * this.currentSizeMultiplier;
+                if (this.x > canvas.width + displaySize) this.x = -displaySize;
+                if (this.x < -displaySize) this.x = canvas.width + displaySize;
+                if (this.y > canvas.height + displaySize) this.y = -displaySize;
+                if (this.y < -displaySize) this.y = canvas.height + displaySize;
+
+                this.draw();
+            }
+
+             // Method to trigger collision visual effect
+             collide() {
+                this.collisionTimer = COLLISION_GLOW_DURATION;
+                this.currentSizeMultiplier = COLLISION_SIZE_BUMP; // Start at max bump
+            }
+        }
+
+        function handleCollisions() {
+             const allParticles = [...attractors, ...particles]; // Combine for collision check
+             for (let i = 0; i < allParticles.length; i++) {
+                 for (let j = i + 1; j < allParticles.length; j++) {
+                     const p1 = allParticles[i];
+                     const p2 = allParticles[j];
+                     const dx = p2.x - p1.x;
+                     const dy = p2.y - p1.y;
+                     const distance = Math.sqrt(dx * dx + dy * dy);
+                     // Use current display size for collision check
+                     const minDist = (p1.baseSize * p1.currentSizeMultiplier) + (p2.baseSize * p2.currentSizeMultiplier);
+
+                     if (distance < minDist) {
+                         p1.collide(); // Trigger visual effect
+                         p2.collide();
+
+                         // Collision Response (using mass now)
+                         const overlap = minDist - distance;
+                         const nx = dx / distance; const ny = dy / distance;
+
+                         // Resolve overlap slightly weighted by inverse mass (lighter moves more)
+                         const totalInvMass = (1 / p1.mass) + (1 / p2.mass);
+                         const p1Move = overlap * (1 / p1.mass) / totalInvMass;
+                         const p2Move = overlap * (1 / p2.mass) / totalInvMass;
+                         p1.x -= p1Move * nx; p1.y -= p1Move * ny;
+                         p2.x += p2Move * nx; p2.y += p2Move * ny;
+
+                         const rvx = p1.vx - p2.vx; const rvy = p1.vy - p2.vy;
+                         const velAlongNormal = rvx * nx + rvy * ny;
+                         if (velAlongNormal > 0) continue; // Moving apart
+
+                         // Calculate impulse scalar considering mass and restitution
+                         let impulse = -(1 + COLLISION_DAMPING) * velAlongNormal / totalInvMass;
+
+                         // Apply impulse (Force = Impulse / Time, DeltaV = Impulse / Mass)
+                         p1.vx -= impulse * (1 / p1.mass) * nx; p1.vy -= impulse * (1 / p1.mass) * ny;
+                         p2.vx += impulse * (1 / p2.mass) * nx; p2.vy += impulse * (1 / p2.mass) * ny;
+                     }
+                 }
+             }
+         }
+
+
+        function initParticles() {
+            particles = [];
+            attractors = [];
+
+            // Create Attractors (few, heavy, slow/still)
+            for (let i = 0; i < ATTRACTOR_COUNT; i++) {
+                let size = ATTRACTOR_BASE_SIZE + Math.random() * 5; // Slightly variable attractor size
+                // Position attractors somewhat centrally, but not exactly overlapping
+                let padding = 0.2; // 20% padding from edges
+                let x = canvas.width * (padding + Math.random() * (1 - 2 * padding));
+                let y = canvas.height * (padding + Math.random() * (1 - 2 * padding));
+                let vx = (Math.random() - 0.5) * 0.1; // Very low initial speed
+                let vy = (Math.random() - 0.5) * 0.1;
+                let colorIndex = Math.floor(Math.random() * particleColors.length);
+                attractors.push(new Particle(x, y, vx, vy, size, ATTRACTOR_MASS, colorIndex, true));
+            }
+
+            // Create Orbiting Particles (many, light, initial velocity)
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                let size = Math.random() * (PARTICLE_BASE_SIZE_MAX - PARTICLE_BASE_SIZE_MIN) + PARTICLE_BASE_SIZE_MIN;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                // Give some initial random velocity for orbit potential
+                let vx = (Math.random() - 0.5) * INITIAL_ORBITER_SPEED;
+                let vy = (Math.random() - 0.5) * INITIAL_ORBITER_SPEED;
+                let colorIndex = Math.floor(Math.random() * particleColors.length);
+                particles.push(new Particle(x, y, vx, vy, size, PARTICLE_MASS, colorIndex, false));
+            }
+        }
+
+        function animate() {
+            // Clear canvas (trails effect)
+            ctx.fillStyle = 'rgba(8, 8, 11, 0.25)'; // Slightly stronger trails
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            handleCollisions(); // Check all particle pairs
+
+            // Update all particles (attractors and orbiters)
+            attractors.forEach(p => p.update());
+            particles.forEach(p => p.update());
+
+            requestAnimationFrame(animate);
+        }
+
+        // --- Initial Setup ---
+        resizeCanvas();
+        initParticles();
+        animate();
+        // --- End Initial Setup ---
+
+    </script>
+
+</body>
+</html>
